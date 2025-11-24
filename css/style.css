@@ -54,3 +54,31 @@ nav a {
 nav a:hover {
     text-decoration: underline;
 }
+/* Intro sectie */
+#intro {
+    background-color: #fefefe;
+    text-align: center;
+    padding: 40px 0;
+}
+
+#intro h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+#intro p {
+    margin-bottom: 20px;
+}
+
+/* Button */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #98bad5;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.button:hover {
+    background-color: #81add0;
+}
