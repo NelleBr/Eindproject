@@ -21,8 +21,7 @@
             </nav>
         </div>
     </header>
-</body>
-<section id="intro">
+    <section id="intro">
     <div class="container">
         <h2>Alles voor jouw volleybalspel</h2>
         <p>Koop schoenen, kleding, volleyballen en accessoires speciaal voor volleybal.</p>
@@ -106,5 +105,6 @@
 <footer>
     <p>&copy; <?php echo date('Y'); ?> VolleyShop. Alle rechten voorbehouden.</p>
 </footer>
+</body>
 
 </html>
