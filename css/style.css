@@ -147,7 +147,7 @@ nav a:hover {
 }
 
 .product-category {
-    font-size: 14px;
+    font-size: 0.9em;
     color: #555555;
 }
 
@@ -160,4 +160,16 @@ nav a:hover {
     border-color: #d8e1e8;          
     transform: scale(1.02);    
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+footer {
+    background-color: #304674;
+    color: #fefefe;
+    text-align: center;
+    padding: 25px 0;
+    margin-top: 20px;
+}
+
+footer p {
+    font-size: 0.9em;
 }
