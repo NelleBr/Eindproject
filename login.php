@@ -39,7 +39,7 @@
                     <button type="submit">Inloggen</button>
                 </form>
 
-                <p>Nog geen account? <a href="register.php">Registreer hier</a>.</p>
+                <p>Nog geen account? <a href="registreer.php">Registreer hier</a>.</p>
             </div>
         </section>
     </main>
