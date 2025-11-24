@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="css/style.css" />
     <title>Volleybal Webshop</title>
 </head>
-<>
     <header>
         <div class="container">
             <h1>VolleyShop</h1>

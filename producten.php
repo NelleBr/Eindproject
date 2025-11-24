@@ -13,10 +13,10 @@
             <h1>VolleyShop</h1>
             <nav>
                 <div>
-                    <a href="#">Home</a>
-                    <a href="#">Producten</a>
-                    <a href="#">Winkelmandje</a>
-                    <a href="#">Account</a>
+                    <a href="index.php">Home</a>
+                    <a href="producten.php">Producten</a>
+                    <a href="cart.php">Winkelmandje</a>
+                    <a href="account.php">Account</a>
                 </div>
             </nav>
         </div>
