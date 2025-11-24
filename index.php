@@ -59,4 +59,49 @@
     </div>
 </section>
 
+<section id="featured-products">
+    <div class="container">
+        <h2>Uitgelichte producten</h2>
+        <div class="product-list">
+
+            <a href="#" class="product-link">
+                <article class="product-item">
+                    <img src="https://placehold.co/200x200" alt="">
+                    <h3>Mizuno Volleybalschoenen Wave Momentum 3</h3>
+                    <p class="product-category">Volleybalschoenen</p>
+                    <p class="product-price">€89,99</p>
+                </article>
+            </a>
+
+            <a href="#" class="product-link">
+                <article class="product-item">
+                    <img src="https://placehold.co/200x200" alt="">
+                    <h3>Mikasa V200W Volleybal FIVB</h3>
+                    <p class="product-category">Volleyballen</p>
+                    <p class="product-price">€94,99</p>
+                </article>
+            </a>
+
+            <a href="#" class="product-link">
+                <article class="product-item">
+                    <img src="https://placehold.co/200x200" alt="">
+                    <h3>Volleybalshirt Unisex</h3>
+                    <p class="product-category">Kleding</p>
+                    <p class="product-price">€24,99</p>
+                </article>
+            </a>
+
+            <a href="#" class="product-link">
+                <article class="product-item">
+                    <img src="https://placehold.co/200x200" alt="">
+                    <h3>Kniebeschermers Mizuno</h3>
+                    <p class="product-category">Bescherming</p>
+                    <p class="product-price">€19,99</p>
+                </article>
+            </a>
+
+        </div>
+    </div>
+</section>
+
 </html>
