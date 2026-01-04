@@ -1,3 +1,12 @@
+<?php
+
+session_start();
+include_once(__DIR__ . "/db.inc.php");
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
