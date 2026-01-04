@@ -15,6 +15,16 @@ if (!empty($_POST)) {
         $error = "Vul alle velden in.";
     } elseif ($password !== $passwordConfirm) {
         $error = "Wachtwoorden komen niet overeen.";
+    } else {
+        $check = $conn->prepare("SELECT id FROM users WHERE email = :email LIMIT 1");
+        $check->bindvalue(":email", $email);
+        $check->execute();
+
+        $existingUser = $check->fetch(PDO::FETCH_ASSOC);
+
+        if ($existingUser) {
+            $error = "Er bestaat al een account met dit e-mailadres.";
+        }
     }
 }
 
