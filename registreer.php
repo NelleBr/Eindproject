@@ -6,12 +6,13 @@ include_once(__DIR__ . "/db.inc.php");
 $error = "";
 
 if (!empty($_POST)) {
-    $naam = $_POST["name"];
+    $firstName = $_POST["first_name"];
+    $lastName = $_POST["last_name"];
     $email = $_POST["email"];
     $password = $_POST["password"];
     $passwordConfirm = $_POST["password_confirm"];
 
-    if ($naam === "" || $email === "" || $password === "" || $passwordConfirm === "") {
+    if ($firstName === "" || $lastName === "" || $email === "" || $password === "" || $passwordConfirm === "") {
         $error = "Vul alle velden in.";
     } elseif ($password !== $passwordConfirm) {
         $error = "Wachtwoorden komen niet overeen.";
