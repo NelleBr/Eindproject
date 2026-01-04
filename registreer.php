@@ -18,7 +18,7 @@ if (!empty($_POST)) {
         $error = "Wachtwoorden komen niet overeen.";
     } else {
         $check = $conn->prepare("SELECT id FROM users WHERE email = :email LIMIT 1");
-        $check->bindvalue(":email", $email);
+        $check->bindValue(":email", $email);
         $check->execute();
 
         $existingUser = $check->fetch(PDO::FETCH_ASSOC);
@@ -28,6 +28,22 @@ if (!empty($_POST)) {
         } else {
             $options = ['cost' => 13,];
             $password = password_hash($password, PASSWORD_BCRYPT, $options);
+
+
+            $statement = $conn->prepare("INSERT INTO users (first_name, last_name, email, password, is_admin, currency)
+            VALUES (:first_name, :last_name, :email, :password, :is_admin, :currency)");
+
+            $statement->bindValue(":first_name", $firstName);
+            $statement->bindValue(":last_name", $lastName);
+            $statement->bindValue(":email", $email);
+            $statement->bindValue(":password", $password);
+            $statement->bindValue(":is_admin", 0);
+            $statement->bindValue(":currency", 1000);
+
+            $statement->execute();
+
+            header("Location: index.php");
+            exit;
         }
     }
 }
