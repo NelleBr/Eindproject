@@ -67,8 +67,13 @@ if (!empty($_POST)) {
             <?php endif; ?>
             <form action="#" method="post" class="form-card">
                 <div class="form-group">
-                    <label for="name">Naam</label>
-                    <input type="text" id="name" name="name">
+                    <label for="first_name">Voornaam</label>
+                    <input type="text" id="first_name" name="first_name">
+                </div>
+
+                <div class="form-group">
+                    <label for="last_name">Achternaam</label>
+                    <input type="text" id="last_name" name="last_name">
                 </div>
 
                 <div class="form-group">
