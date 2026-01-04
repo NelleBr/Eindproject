@@ -24,7 +24,10 @@ if (!empty($_POST)) {
 
         if ($existingUser) {
             $error = "Er bestaat al een account met dit e-mailadres.";
+        } else {
+            $options = ['cost' => 13,];
         }
+        $password = password_hash($password, PASSWORD_BCRYPT, $options);
     }
 }
 
