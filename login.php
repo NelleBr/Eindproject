@@ -3,10 +3,25 @@
 session_start();
 include_once(__DIR__ . "/db.inc.php");
 
+$error = "";
+
+if (!empty($_POST)) {
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+
+    $statement = $conn->prepare("SELECT * FROM users WHERE email = :email LIMIT 1");
+    $statement->bindValue(":email", $email);
+    $statement->execute();
+
+    $user = $statement->fetch(PDO::FETCH_ASSOC);
+
+}
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +29,7 @@ include_once(__DIR__ . "/db.inc.php");
     <link rel="stylesheet" href="css/style.css" />
     <title>Volleybal Webshop</title>
 </head>
+
 <body>
     <header>
         <div class="container">
@@ -55,4 +71,5 @@ include_once(__DIR__ . "/db.inc.php");
         <p>&copy; <?php echo date('Y'); ?> VolleyShop. Alle rechten voorbehouden.</p>
     </footer>
 </body>
+
 </html>
