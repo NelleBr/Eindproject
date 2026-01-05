@@ -59,6 +59,18 @@ if (!empty($_POST)) {
 
         $statement->execute();
 
+        $productId = $conn->lastInsertId();
+
+        $image = $_POST["product_image"];
+
+        if ($image !== "") {
+            $imgStatement = $conn->prepare("INSERT INTO product_images (product_id, image_path)
+        VALUES (:product_id, :image_path)");
+            $imgStatement->bindValue(":product_id", $productId);
+            $imgStatement->bindValue(":image_path", $image);
+            $imgStatement->execute();
+        }
+
         header("Location: admin.php");
         exit;
     }
