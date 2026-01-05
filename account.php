@@ -49,6 +49,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     <h3>Acties</h3>
                     <ul>
                         <li><a href="cart.php">Winkelmandje bekijken</a></li>
+                        <li><a href="change-password.php">Wachtwoord wijzigen</a></li>
                         <li><a href="logout.php">Uitloggen</a></li>
                     </ul>
                 </div>
