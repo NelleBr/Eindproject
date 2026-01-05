@@ -17,6 +17,21 @@ include_once(__DIR__ . "/db.inc.php");
 
 $error = "";
 
+$list = $conn->query("
+    SELECT 
+        products.id,
+        products.name,
+        products.description,
+        products.price,
+        products.stock,
+        categories.name AS category_name
+    FROM products
+    JOIN categories ON products.category_id = categories.id
+    ORDER BY products.id DESC
+");
+
+$products = $list->fetchAll(PDO::FETCH_ASSOC);
+
 if (!empty($_POST)) {
     $name = $_POST["product_title"];
     $description = $_POST["product_description"];
@@ -116,6 +131,16 @@ if (!empty($_POST)) {
                 <div class="admin-section">
                     <h3>Bestaande producten</h3>
                     <ul>
+                        <?php foreach ($products as $product): ?>
+                            <li>
+                                <strong><?php echo htmlspecialchars($product["name"]); ?></strong><br>
+                                Categorie: <?php echo htmlspecialchars($product["category_name"]); ?><br>
+                                Beschrijving: <?php echo htmlspecialchars($product["description"]); ?><br>
+                                Prijs: €<?php echo htmlspecialchars($product["price"]); ?><br>
+                                Voorraad: <?php echo htmlspecialchars($product["stock"]); ?>
+                            </li>
+                            <hr>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
             </div>
