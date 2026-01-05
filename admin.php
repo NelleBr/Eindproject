@@ -39,15 +39,24 @@ if (!isset($_SESSION["is_admin"]) || $_SESSION["is_admin"] != 1) {
                             <label for="product_title">Titel</label>
                             <input type="text" id="product_title" name="product_title" required>
                         </div>
+                        <div class="form-group">
+                            <label for="product_description">Beschrijving</label>
+                            <textarea id="product_description" name="product_description"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product_stock">Voorraad</label>
+                            <input type="number" id="product_stock" name="product_stock" required>
+                        </div>
 
                         <div class="form-group">
                             <label for="product_category">Categorie</label>
                             <select id="product_category" name="product_category">
-                                <option value="schoenen">Volleybalschoenen</option>
-                                <option value="kleding">Kleding</option>
-                                <option value="ballen">Volleyballen</option>
-                                <option value="bescherming">Bescherming</option>
-                                <option value="accessoires">Accessoires</option>
+                                <option value="1">Volleybalschoenen</option>
+                                <option value="2">Kleding</option>
+                                <option value="3">Volleyballen</option>
+                                <option value="4">Bescherming</option>
+                                <option value="5">Accessoires</option>
                             </select>
                         </div>
 
