@@ -13,6 +13,26 @@ if (!isset($_SESSION["is_admin"]) || $_SESSION["is_admin"] != 1) {
     exit;
 }
 
+include_once(__DIR__ . "/db.inc.php");
+
+$error = "";
+
+if (!empty($_POST)) {
+    $name = $_POST["product_title"];
+    $description = $_POST["product_description"];
+    $categoryId = $_POST["product_category"];
+    $price = $_POST["product_price"];
+    $stock = $_POST["product_stock"];
+
+    if ($name === "" || $categoryId === "" || $price = "" || $stock === "") {
+        $error = "Vul alle velden in.";
+    } elseif ($price <= 0) {
+        $error = "Prijs moet hoger zijn dan 0.";
+    } elseif ($stock < 0) {
+        $error = "Vooraad kan niet negatief zijn.";
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,10 +54,13 @@ if (!isset($_SESSION["is_admin"]) || $_SESSION["is_admin"] != 1) {
 
                 <div class="admin-section">
                     <h3>Nieuw product aanmaken</h3>
+                    <?php if ($error !== ""): ?>
+                        <p><?php echo htmlspecialchars($error); ?></p>
+                    <?php endif; ?>
                     <form action="#" method="post" class="form-card">
                         <div class="form-group">
                             <label for="product_title">Titel</label>
-                            <input type="text" id="product_title" name="product_title" required>
+                            <input type="text" id="product_title" name="product_title">
                         </div>
                         <div class="form-group">
                             <label for="product_description">Beschrijving</label>
@@ -46,7 +69,7 @@ if (!isset($_SESSION["is_admin"]) || $_SESSION["is_admin"] != 1) {
 
                         <div class="form-group">
                             <label for="product_stock">Voorraad</label>
-                            <input type="number" id="product_stock" name="product_stock" required>
+                            <input type="number" id="product_stock" name="product_stock">
                         </div>
 
                         <div class="form-group">
@@ -62,7 +85,7 @@ if (!isset($_SESSION["is_admin"]) || $_SESSION["is_admin"] != 1) {
 
                         <div class="form-group">
                             <label for="product_price">Prijs (€)</label>
-                            <input type="number" id="product_price" name="product_price" step="0.01" required>
+                            <input type="number" id="product_price" name="product_price" step="0.01">
                         </div>
 
                         <div class="form-group">
