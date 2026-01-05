@@ -24,12 +24,13 @@ $list = $conn->query("
         products.description,
         products.price,
         products.stock,
-        categories.name AS category_name
+        categories.name AS category_name,
+        product_images.image_path AS image
     FROM products
     JOIN categories ON products.category_id = categories.id
+    LEFT JOIN product_images ON product_images.product_id = products.id
     ORDER BY products.id DESC
 ");
-
 $products = $list->fetchAll(PDO::FETCH_ASSOC);
 
 if (!empty($_POST)) {
@@ -149,7 +150,10 @@ if (!empty($_POST)) {
                                 Categorie: <?php echo htmlspecialchars($product["category_name"]); ?><br>
                                 Beschrijving: <?php echo htmlspecialchars($product["description"]); ?><br>
                                 Prijs: €<?php echo htmlspecialchars($product["price"]); ?><br>
-                                Voorraad: <?php echo htmlspecialchars($product["stock"]); ?>
+                                Voorraad: <?php echo htmlspecialchars($product["stock"]); ?> <br>
+                                <?php if ($product["image"] !== null && $product["image"] !== ""): ?>
+                                    <img src="<?php echo htmlspecialchars($product["image"]); ?>" alt="" style="width:80px;height:80px;object-fit:cover;">
+                                <?php endif; ?>
                             </li>
                             <hr>
                         <?php endforeach; ?>
