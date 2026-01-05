@@ -2,7 +2,6 @@
 
 session_start();
 
-include_once(__DIR__ . "/footer.inc.php");
 
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("Location: login.php");
