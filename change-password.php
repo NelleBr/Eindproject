@@ -5,6 +5,7 @@ session_start();
 include_once(__DIR__ . "/db.inc.php");
 
 $error = "";
+$success = "";
 
 if (!empty($_POST)) {
     $currentPassword = $_POST["current_password"];
@@ -27,6 +28,19 @@ if (!empty($_POST)) {
         if (!$user || !password_verify($currentPassword, $user["password"])) {
             $error = "Je huidige wachtwoord is fout.";
         }
+    }
+
+    if ($error == "") {
+        $options = ["cost" => 13];
+
+        $password = password_hash($newPassword, PASSWORD_BCRYPT, $options);
+
+        $update = $conn->prepare("UPDATE users SET password = :password WHERE id = :id");
+        $update->bindValue(":password", $password);
+        $update->bindValue(":id", $_SESSION["user_id"]);
+        $update->execute();
+
+        $success = "Je wachtwoord is succesvol gewijzigd.";
     }
 }
 
@@ -63,6 +77,9 @@ if (!empty($_POST)) {
                 <h2>Wachtwoord wijzigen</h2>
                 <?php if ($error !== ""): ?>
                     <p><?php echo htmlspecialchars($error); ?></p>
+                <?php endif; ?>
+                <?php if ($success !== ""): ?>
+                    <p><?php echo htmlspecialchars($success); ?></p>
                 <?php endif; ?>
                 <form action="" method="post" class="form-card">
                     <div class="form-group">
