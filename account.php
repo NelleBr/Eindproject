@@ -39,6 +39,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
                 <div class="account-info">
                     <p><strong>Welkom</strong> <?php echo htmlspecialchars($_SESSION["first_name"] . " " . $_SESSION["last_name"]); ?></p>
+                    <p>
+                        <strong>Saldo:</strong>
+                        <?php echo htmlspecialchars($_SESSION["currency"]); ?> Munten
+                    </p>
                 </div>
 
                 <div class="account-actions">
