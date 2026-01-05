@@ -16,6 +16,7 @@ if (!isset($_SESSION["is_admin"]) || $_SESSION["is_admin"] != 1) {
 include_once(__DIR__ . "/db.inc.php");
 
 $error = "";
+$success = "";
 
 if (!empty($_POST)) {
     $name = $_POST["product_title"];
@@ -24,12 +25,27 @@ if (!empty($_POST)) {
     $price = $_POST["product_price"];
     $stock = $_POST["product_stock"];
 
-    if ($name === "" || $categoryId === "" || $price = "" || $stock === "") {
+    if ($name === "" || $categoryId === "" || $price === "" || $stock === "") {
         $error = "Vul alle velden in.";
     } elseif ($price <= 0) {
         $error = "Prijs moet hoger zijn dan 0.";
     } elseif ($stock < 0) {
         $error = "Vooraad kan niet negatief zijn.";
+    }
+
+    if (!empty($_POST) && $error === "") {
+        $statement = $conn->prepare("INSERT INTO products (category_id, name, description, price, stock)
+        VALUES (:category_id, :name, :description, :price, :stock)");
+
+        $statement->bindValue(":category_id", $categoryId);
+        $statement->bindValue(":name", $name);
+        $statement->bindValue(":description", $description);
+        $statement->bindValue(":price", $price);
+        $statement->bindValue(":stock", $stock);
+
+        $statement->execute();
+
+        $success = "Product is succesvol opgeslagen.";
     }
 }
 
@@ -56,6 +72,9 @@ if (!empty($_POST)) {
                     <h3>Nieuw product aanmaken</h3>
                     <?php if ($error !== ""): ?>
                         <p><?php echo htmlspecialchars($error); ?></p>
+                    <?php endif; ?>
+                    <?php if ($success !== ""): ?>
+                        <p><?php echo htmlspecialchars($success); ?></p>
                     <?php endif; ?>
                     <form action="#" method="post" class="form-card">
                         <div class="form-group">
