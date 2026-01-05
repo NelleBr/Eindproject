@@ -38,7 +38,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 <h2>Mijn account</h2>
 
                 <div class="account-info">
-                    <p><strong>Ingelogde gebruiker:</strong> (later met PHP)</p>
+                    <p><strong>Welkom</strong> <?php echo htmlspecialchars($_SESSION["first_name"] . " " . $_SESSION["last_name"]); ?></p>
                 </div>
 
                 <div class="account-actions">
