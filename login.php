@@ -28,6 +28,7 @@ if (!empty($_POST)) {
         $_SESSION["first_name"] = $user["first_name"];
         $_SESSION["last_name"] = $user["last_name"];
         $_SESSION["is_admin"] = $user["is_admin"];
+        $_SESSION["currency"] = $user["currency"];
 
         header("Location: index.php");
         exit;
