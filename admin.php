@@ -16,7 +16,6 @@ if (!isset($_SESSION["is_admin"]) || $_SESSION["is_admin"] != 1) {
 include_once(__DIR__ . "/db.inc.php");
 
 $error = "";
-$success = "";
 
 if (!empty($_POST)) {
     $name = $_POST["product_title"];
@@ -45,7 +44,8 @@ if (!empty($_POST)) {
 
         $statement->execute();
 
-        $success = "Product is succesvol opgeslagen.";
+        header("Location: admin.php");
+        exit;
     }
 }
 
@@ -72,9 +72,6 @@ if (!empty($_POST)) {
                     <h3>Nieuw product aanmaken</h3>
                     <?php if ($error !== ""): ?>
                         <p><?php echo htmlspecialchars($error); ?></p>
-                    <?php endif; ?>
-                    <?php if ($success !== ""): ?>
-                        <p><?php echo htmlspecialchars($success); ?></p>
                     <?php endif; ?>
                     <form action="#" method="post" class="form-card">
                         <div class="form-group">
@@ -118,10 +115,7 @@ if (!empty($_POST)) {
 
                 <div class="admin-section">
                     <h3>Bestaande producten</h3>
-                    <p>Later komen hier de producten vanuit mijn database</p>
                     <ul>
-                        <li>Mizuno Volleybalschoenen Wave Momentum 3</li>
-                        <li>Mikasa V200W Volleybal FIVB</li>
                     </ul>
                 </div>
             </div>
