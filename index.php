@@ -1,3 +1,8 @@
+<?php
+
+session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,19 +15,7 @@
 </head>
 
 <body>
-    <header>
-        <div class="container">
-            <h1>VolleyShop</h1>
-            <nav>
-                <div>
-                    <a href="index.php">Home</a>
-                    <a href="producten.php">Producten</a>
-                    <a href="cart.php">Winkelmandje</a>
-                    <a href="account.php">Account</a>
-                </div>
-            </nav>
-        </div>
-    </header>
+    <?php include_once(__DIR__ . "/nav.inc.php"); ?>
     <section id="intro">
         <div class="container">
             <h2>Alles voor jouw volleybalspel</h2>
@@ -104,9 +97,7 @@
             </div>
         </div>
     </section>
-    <footer>
-        <p>&copy; <?php echo date('Y'); ?> VolleyShop. Alle rechten voorbehouden.</p>
-    </footer>
+    <?php include_once(__DIR__ . "/footer.inc.php"); ?>
 </body>
 
 </html>

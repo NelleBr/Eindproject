@@ -68,19 +68,7 @@ if (!empty($_POST)) {
     <link rel="stylesheet" href="css/style.css" />
     <title>Volleybal Webshop</title>
 </head>
-<header>
-    <div class="container">
-        <h1>VolleyShop</h1>
-        <nav>
-            <div>
-                <a href="index.php">Home</a>
-                <a href="producten.php">Producten</a>
-                <a href="cart.php">Winkelmandje</a>
-                <a href="account.php">Account</a>
-            </div>
-        </nav>
-    </div>
-</header>
+<?php include_once(__DIR__ . "/nav.inc.php"); ?>
 <main>
     <section id="register">
         <div class="container">
@@ -122,9 +110,7 @@ if (!empty($_POST)) {
     </section>
 </main>
 
-<footer>
-    <p>&copy; <?php echo date('Y'); ?> VolleyShop. Alle rechten voorbehouden.</p>
-</footer>
+<?php include_once(__DIR__ . "/footer.inc.php"); ?>
 </body>
 
 </html>
