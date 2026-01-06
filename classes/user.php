@@ -83,4 +83,15 @@ class User
 
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function updatePassword($conn, $id, $newPassword)
+    {
+        $options = ["cost" => 13];
+        $hash = password_hash($newPassword, PASSWORD_BCRYPT, $options);
+
+        $update = $conn->prepare("UPDATE users SET password = :password WHERE id = :id");
+        $update->bindValue(":password", $hash);
+        $update->bindValue(":id", $id);
+        $update->execute();
+    }
 }
