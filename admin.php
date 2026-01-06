@@ -14,11 +14,15 @@ if (!isset($_SESSION["is_admin"]) || $_SESSION["is_admin"] != 1) {
 
 include_once(__DIR__ . "/db.inc.php");
 include_once(__DIR__ . "/classes/product.php");
+include_once(__DIR__ . "/classes/Category.php");
 
 $error = "";
 
 $productClass = new Product();
 $products = $productClass->getAll($conn);
+
+$categoryClass = new Category();
+$categories = $categoryClass->getAll($conn);
 
 if (!empty($_POST)) {
     $name = $_POST["product_title"];
@@ -91,11 +95,11 @@ if (!empty($_POST)) {
                         <div class="form-group">
                             <label for="product_category">Categorie</label>
                             <select id="product_category" name="product_category">
-                                <option value="1">Volleybalschoenen</option>
-                                <option value="2">Kleding</option>
-                                <option value="3">Volleyballen</option>
-                                <option value="4">Bescherming</option>
-                                <option value="5">Accessoires</option>
+                                <?php foreach ($categories as $category): ?>
+                                    <option value="<?php echo $category["id"]; ?>">
+                                        <?php echo htmlspecialchars($category["name"]); ?>
+                                    </option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
 
