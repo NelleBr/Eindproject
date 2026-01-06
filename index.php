@@ -2,6 +2,12 @@
 
 session_start();
 
+include_once(__DIR__ . "/db.inc.php");
+include_once(__DIR__ . "/classes/Category.php");
+
+$categoryClass = new Category();
+$categories = $categoryClass->getAll($conn);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,31 +35,11 @@ session_start();
         <div class="container">
             <h2>Categorieën</h2>
             <div class="category-list">
-                <a href="producten.php?categorie=1" class="category-item">
-                    <h3>Volleybalschoenen</h3>
-                    <p>Goede grip en demping voor op het veld.</p>
-                </a>
-
-                <a href="producten.php?categorie=2" class="category-item">
-                    <h3>Kleding</h3>
-                    <p>Shirts, shorts en trainingskleding voor volleybal.</p>
-                </a>
-
-                <a href="producten.php?categorie=3" class="category-item">
-                    <h3>Volleyballen</h3>
-                    <p>Wedstrijd- en trainingsballen voor indoor en beach.</p>
-                </a>
-
-                <a href="producten.php?categorie=4" class="category-item">
-                    <h3>Bescherming</h3>
-                    <p>Kniebeschermers, enkelbraces en andere bescherming.</p>
-                </a>
-
-                <a href="producten.php?categorie=5" class="category-item">
-                    <h3>Accessoires</h3>
-                    <p>Tassen, bidons, sokken en meer.</p>
-                </a>
-
+                <?php foreach ($categories as $category): ?>
+                    <a href="producten.php?categorie=<?php echo $category["id"]; ?>" class="category-item">
+                        <h3><?php echo htmlspecialchars($category["name"]); ?></h3>
+                    </a>
+                <?php endforeach; ?>
             </div>
         </div>
     </section>
