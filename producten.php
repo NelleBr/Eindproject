@@ -3,16 +3,42 @@ session_start();
 
 include_once(__DIR__ . "/db.inc.php");
 
-$list = $conn->query("SELECT 
-        products.id,
-        products.name,
-        products.price,
-        categories.name AS category_name,
-        product_images.image_path AS image
-    FROM products
-    JOIN categories ON products.category_id = categories.id
-    LEFT JOIN product_images ON product_images.product_id = products.id
-    ORDER BY products.id DESC");
+$categoryFilter = "";
+
+if (isset($_GET["categorie"])) {
+    $categoryFilter = $_GET["categorie"];
+}
+
+if ($categoryFilter === "") {
+    $list = $conn->query("
+        SELECT 
+            products.id,
+            products.name,
+            products.price,
+            categories.name AS category_name,
+            product_images.image_path AS image
+        FROM products
+        JOIN categories ON products.category_id = categories.id
+        LEFT JOIN product_images ON product_images.product_id = products.id
+        ORDER BY products.id DESC
+    ");
+} else {
+    $list = $conn->prepare("
+        SELECT 
+            products.id,
+            products.name,
+            products.price,
+            categories.name AS category_name,
+            product_images.image_path AS image
+        FROM products
+        JOIN categories ON products.category_id = categories.id
+        LEFT JOIN product_images ON product_images.product_id = products.id
+        WHERE products.category_id = :category_id
+        ORDER BY products.id DESC
+    ");
+    $list->bindValue(":category_id", $categoryFilter);
+    $list->execute();
+}
 
 $products = $list->fetchAll(PDO::FETCH_ASSOC);
 
@@ -40,11 +66,11 @@ $products = $list->fetchAll(PDO::FETCH_ASSOC);
                         <label for="categorie">Categorie:</label>
                         <select id="categorie" name="categorie">
                             <option value="">Alle categorieën</option>
-                            <option value="1">Volleybalschoenen</option>
-                            <option value="2">Kleding</option>
-                            <option value="3">Volleyballen</option>
-                            <option value="4">Bescherming</option>
-                            <option value="5">Accessoires</option>
+                            <option value="1" <?php if ($categoryFilter == "1") echo "selected"; ?>>Volleybalschoenen</option>
+                            <option value="2" <?php if ($categoryFilter == "2") echo "selected"; ?>>Kleding</option>
+                            <option value="3" <?php if ($categoryFilter == "3") echo "selected"; ?>>Volleyballen</option>
+                            <option value="4" <?php if ($categoryFilter == "4") echo "selected"; ?>>Bescherming</option>
+                            <option value="5" <?php if ($categoryFilter == "5") echo "selected"; ?>>Accessoires</option>
                         </select>
                     </div>
 
