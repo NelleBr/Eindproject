@@ -8,6 +8,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 }
 
 include_once(__DIR__ . "/db.inc.php");
+include_once(__DIR__ . "/classes/user.php");
 
 $error = "";
 
@@ -23,38 +24,22 @@ if (!empty($_POST)) {
     } elseif ($password !== $passwordConfirm) {
         $error = "Wachtwoorden komen niet overeen.";
     } else {
-        $check = $conn->prepare("SELECT id FROM users WHERE email = :email LIMIT 1");
-        $check->bindValue(":email", $email);
-        $check->execute();
+        $user = new User();
+        $user->setFirstName($firstName);
+        $user->setLastName($lastName);
+        $user->setEmail($email);
+        $user->setPassword($password);
 
-        $existingUser = $check->fetch(PDO::FETCH_ASSOC);
-
-        if ($existingUser) {
+        if ($user->emailExists($conn)) {
             $error = "Er bestaat al een account met dit e-mailadres.";
         } else {
-            $options = ['cost' => 13,];
-            $password = password_hash($password, PASSWORD_BCRYPT, $options);
-
-
-            $statement = $conn->prepare("INSERT INTO users (first_name, last_name, email, password, is_admin, currency)
-            VALUES (:first_name, :last_name, :email, :password, :is_admin, :currency)");
-
-            $statement->bindValue(":first_name", $firstName);
-            $statement->bindValue(":last_name", $lastName);
-            $statement->bindValue(":email", $email);
-            $statement->bindValue(":password", $password);
-            $statement->bindValue(":is_admin", 0);
-            $statement->bindValue(":currency", 1000);
-
-            $statement->execute();
+            $user->register($conn);
 
             header("Location: index.php");
             exit;
         }
     }
 }
-
-
 
 ?>
 
