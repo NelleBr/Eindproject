@@ -3,9 +3,13 @@ session_start();
 
 include_once(__DIR__ . "/db.inc.php");
 include_once(__DIR__ . "/classes/product.php");
+include_once(__DIR__ . "/classes/category.php");
 
 $categoryFilter = "";
 $search = "";
+
+$categoryClass = new Category();
+$categories = $categoryClass->getAll($conn);
 
 if (isset($_GET["categorie"])) {
     $categoryFilter = $_GET["categorie"];
@@ -42,11 +46,13 @@ $products = $productClass->searchAndFilter($conn, $categoryFilter, $search);
                         <label for="categorie">Categorie:</label>
                         <select id="categorie" name="categorie">
                             <option value="">Alle categorieën</option>
-                            <option value="1" <?php if ($categoryFilter == "1") echo "selected"; ?>>Volleybalschoenen</option>
-                            <option value="2" <?php if ($categoryFilter == "2") echo "selected"; ?>>Kleding</option>
-                            <option value="3" <?php if ($categoryFilter == "3") echo "selected"; ?>>Volleyballen</option>
-                            <option value="4" <?php if ($categoryFilter == "4") echo "selected"; ?>>Bescherming</option>
-                            <option value="5" <?php if ($categoryFilter == "5") echo "selected"; ?>>Accessoires</option>
+
+                            <?php foreach ($categories as $category): ?>
+                                <option value="<?php echo $category["id"]; ?>"
+                                    <?php if ($categoryFilter == $category["id"]) echo "selected"; ?>>
+                                    <?php echo htmlspecialchars($category["name"]); ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
 
