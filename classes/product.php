@@ -132,4 +132,26 @@ class Product
         $imgStatement->bindValue(":image_path", $imagePath);
         $imgStatement->execute();
     }
+
+    public function getLatest($conn, $limit = 4)
+    {
+        $statement = $conn->prepare("
+        SELECT 
+            products.id,
+            products.name,
+            products.price,
+            categories.name AS category_name,
+            product_images.image_path AS image
+        FROM products
+        JOIN categories ON products.category_id = categories.id
+        LEFT JOIN product_images ON product_images.product_id = products.id
+        ORDER BY products.id DESC
+        LIMIT :limit
+    ");
+
+        $statement->bindValue(":limit", (int)$limit, PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
