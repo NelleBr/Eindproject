@@ -4,9 +4,13 @@ session_start();
 
 include_once(__DIR__ . "/db.inc.php");
 include_once(__DIR__ . "/classes/Category.php");
+include_once(__DIR__ . "/classes/Product.php");
 
 $categoryClass = new Category();
 $categories = $categoryClass->getAll($conn);
+
+$productClass = new Product();
+$featuredProducts = $productClass->getLatest($conn, 4);
 
 ?>
 <!DOCTYPE html>
@@ -48,43 +52,21 @@ $categories = $categoryClass->getAll($conn);
         <div class="container">
             <h2>Uitgelichte producten</h2>
             <div class="product-list">
+                <?php foreach ($featuredProducts as $product): ?>
+                    <a href="product.php?id=<?php echo $product["id"]; ?>" class="product-link">
+                        <article class="product-item">
+                            <?php if (!empty($product["image"])): ?>
+                                <img src="<?php echo htmlspecialchars($product["image"]); ?>" alt="">
+                            <?php else: ?>
+                                <img src="https://placehold.co/200x200" alt="">
+                            <?php endif; ?>
 
-                <a href="#" class="product-link">
-                    <article class="product-item">
-                        <img src="https://placehold.co/200x200" alt="">
-                        <h3>Mizuno Volleybalschoenen Wave Momentum 3</h3>
-                        <p class="product-category">Volleybalschoenen</p>
-                        <p class="product-price">€89,99</p>
-                    </article>
-                </a>
-
-                <a href="#" class="product-link">
-                    <article class="product-item">
-                        <img src="https://placehold.co/200x200" alt="">
-                        <h3>Mikasa V200W Volleybal FIVB</h3>
-                        <p class="product-category">Volleyballen</p>
-                        <p class="product-price">€94,99</p>
-                    </article>
-                </a>
-
-                <a href="#" class="product-link">
-                    <article class="product-item">
-                        <img src="https://placehold.co/200x200" alt="">
-                        <h3>Volleybalshirt Unisex</h3>
-                        <p class="product-category">Kleding</p>
-                        <p class="product-price">€24,99</p>
-                    </article>
-                </a>
-
-                <a href="#" class="product-link">
-                    <article class="product-item">
-                        <img src="https://placehold.co/200x200" alt="">
-                        <h3>Kniebeschermers Mizuno</h3>
-                        <p class="product-category">Bescherming</p>
-                        <p class="product-price">€19,99</p>
-                    </article>
-                </a>
-
+                            <h3><?php echo htmlspecialchars($product["name"]); ?></h3>
+                            <p class="product-category"><?php echo htmlspecialchars($product["category_name"]); ?></p>
+                            <p class="product-price">€<?php echo htmlspecialchars($product["price"]); ?></p>
+                        </article>
+                    </a>
+                <?php endforeach; ?>
             </div>
         </div>
     </section>
