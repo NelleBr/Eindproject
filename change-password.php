@@ -3,6 +3,7 @@
 session_start();
 
 include_once(__DIR__ . "/db.inc.php");
+include_once(__DIR__ . "/classes/user.php");
 
 $error = "";
 $success = "";
@@ -19,26 +20,18 @@ if (!empty($_POST)) {
     }
 
     if ($error === "") {
-        $statement = $conn->prepare("SELECT password FROM users WHERE id = :id LIMIT 1");
-        $statement->bindValue(":id", $_SESSION["user_id"]);
-        $statement->execute();
+        $user = new User();
 
-        $user = $statement->fetch(PDO::FETCH_ASSOC);
+        $dbUser = $user->getPasswordHashById($conn, $_SESSION["user_id"]);
 
-        if (!$user || !password_verify($currentPassword, $user["password"])) {
+        if (!$dbUser || !password_verify($currentPassword, $dbUser["password"])) {
             $error = "Je huidige wachtwoord is fout.";
         }
     }
 
-    if ($error == "") {
-        $options = ["cost" => 13];
-
-        $password = password_hash($newPassword, PASSWORD_BCRYPT, $options);
-
-        $update = $conn->prepare("UPDATE users SET password = :password WHERE id = :id");
-        $update->bindValue(":password", $password);
-        $update->bindValue(":id", $_SESSION["user_id"]);
-        $update->execute();
+    if ($error === "") {
+        $user = new User();
+        $user->updatePassword($conn, $_SESSION["user_id"], $newPassword);
 
         $success = "Je wachtwoord is succesvol gewijzigd.";
     }
