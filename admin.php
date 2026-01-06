@@ -2,7 +2,6 @@
 
 session_start();
 
-
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("Location: login.php");
     exit;
@@ -14,24 +13,12 @@ if (!isset($_SESSION["is_admin"]) || $_SESSION["is_admin"] != 1) {
 }
 
 include_once(__DIR__ . "/db.inc.php");
+include_once(__DIR__ . "/classes/product.php");
 
 $error = "";
 
-$list = $conn->query("
-    SELECT 
-        products.id,
-        products.name,
-        products.description,
-        products.price,
-        products.stock,
-        categories.name AS category_name,
-        product_images.image_path AS image
-    FROM products
-    JOIN categories ON products.category_id = categories.id
-    LEFT JOIN product_images ON product_images.product_id = products.id
-    ORDER BY products.id DESC
-");
-$products = $list->fetchAll(PDO::FETCH_ASSOC);
+$productClass = new Product();
+$products = $productClass->getAll($conn);
 
 if (!empty($_POST)) {
     $name = $_POST["product_title"];
@@ -39,37 +26,22 @@ if (!empty($_POST)) {
     $categoryId = $_POST["product_category"];
     $price = $_POST["product_price"];
     $stock = $_POST["product_stock"];
+    $image = $_POST["product_image"];
 
     if ($name === "" || $categoryId === "" || $price === "" || $stock === "") {
         $error = "Vul alle velden in.";
     } elseif ($price <= 0) {
         $error = "Prijs moet hoger zijn dan 0.";
     } elseif ($stock < 0) {
-        $error = "Vooraad kan niet negatief zijn.";
+        $error = "Voorraad kan niet negatief zijn.";
     }
 
-    if (!empty($_POST) && $error === "") {
-        $statement = $conn->prepare("INSERT INTO products (category_id, name, description, price, stock)
-        VALUES (:category_id, :name, :description, :price, :stock)");
-
-        $statement->bindValue(":category_id", $categoryId);
-        $statement->bindValue(":name", $name);
-        $statement->bindValue(":description", $description);
-        $statement->bindValue(":price", $price);
-        $statement->bindValue(":stock", $stock);
-
-        $statement->execute();
-
-        $productId = $conn->lastInsertId();
+    if ($error === "") {
+        $productId = $productClass->create($conn, $categoryId, $name, $description, $price, $stock);
 
         $image = $_POST["product_image"];
-
         if ($image !== "") {
-            $imgStatement = $conn->prepare("INSERT INTO product_images (product_id, image_path)
-        VALUES (:product_id, :image_path)");
-            $imgStatement->bindValue(":product_id", $productId);
-            $imgStatement->bindValue(":image_path", $image);
-            $imgStatement->execute();
+            $productClass->addImage($conn, $productId, $image);
         }
 
         header("Location: admin.php");
