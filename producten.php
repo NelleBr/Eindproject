@@ -118,7 +118,7 @@ if ($categoryFilter === "" && $search === "") {
                         <p>Geen producten gevonden voor je zoekopdracht.</p>
                     <?php else: ?>
                         <?php foreach ($products as $product): ?>
-                            <a href="#" class="product-link">
+                            <a href="product.php?id=<?php echo $product["id"]; ?>" class="product-link">
                                 <article class="product-item">
                                     <?php if ($product["image"]): ?>
                                         <img src="<?php echo htmlspecialchars($product["image"]); ?>" alt="">
