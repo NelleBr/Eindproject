@@ -5,11 +5,17 @@ include_once(__DIR__ . "/db.inc.php");
 
 $categoryFilter = "";
 
+$search = "";
+
+if (isset($_GET["zoekterm"])) {
+    $search = $_GET["zoekterm"];
+}
+
 if (isset($_GET["categorie"])) {
     $categoryFilter = $_GET["categorie"];
 }
 
-if ($categoryFilter === "") {
+if ($categoryFilter === "" && $search === "") {
     $list = $conn->query("
         SELECT 
             products.id,
@@ -22,8 +28,9 @@ if ($categoryFilter === "") {
         LEFT JOIN product_images ON product_images.product_id = products.id
         ORDER BY products.id DESC
     ");
+    $products = $list->fetchAll(PDO::FETCH_ASSOC);
 } else {
-    $list = $conn->prepare("
+    $sql = "
         SELECT 
             products.id,
             products.name,
@@ -33,14 +40,32 @@ if ($categoryFilter === "") {
         FROM products
         JOIN categories ON products.category_id = categories.id
         LEFT JOIN product_images ON product_images.product_id = products.id
-        WHERE products.category_id = :category_id
-        ORDER BY products.id DESC
-    ");
-    $list->bindValue(":category_id", $categoryFilter);
-    $list->execute();
-}
+        WHERE 1=1
+    ";
 
-$products = $list->fetchAll(PDO::FETCH_ASSOC);
+    if ($categoryFilter !== "") {
+        $sql .= " AND products.category_id = :category_id ";
+    }
+
+    if ($search !== "") {
+        $sql .= " AND (products.name LIKE :search OR products.description LIKE :search) ";
+    }
+
+    $sql .= " ORDER BY products.id DESC ";
+
+    $list = $conn->prepare($sql);
+
+    if ($categoryFilter !== "") {
+        $list->bindValue(":category_id", $categoryFilter);
+    }
+
+    if ($search !== "") {
+        $list->bindValue(":search", "%" . $search . "%");
+    }
+
+    $list->execute();
+    $products = $list->fetchAll(PDO::FETCH_ASSOC);
+}
 
 ?>
 <!DOCTYPE html>
@@ -76,7 +101,8 @@ $products = $list->fetchAll(PDO::FETCH_ASSOC);
 
                     <div>
                         <label for="zoekterm">Zoeken:</label>
-                        <input type="text" id="zoekterm" name="zoekterm" placeholder="Zoek een product">
+                        <input type="text" id="zoekterm" name="zoekterm" placeholder="Zoek een product"
+                            value="<?php echo htmlspecialchars($search); ?>">
                     </div>
 
                     <button type="submit">Filter</button>
