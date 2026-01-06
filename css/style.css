@@ -173,3 +173,43 @@ footer {
 footer p {
     font-size: 0.9em;
 }
+
+/* Product detail pagina */
+.product-detail-grid {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.product-detail-left {
+    flex: 1;
+}
+
+.product-detail-left img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 8px;
+}
+
+.product-detail-right {
+    flex: 1;
+}
+
+.product-detail-right h2 {
+    margin-bottom: 10px;
+}
+
+.product-detail-right .product-category {
+    margin-bottom: 15px;
+}
+
+.product-detail-right .product-price {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+}
+
+.product-detail-right .button {
+    margin-top: 15px;
+}
