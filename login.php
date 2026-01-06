@@ -1,7 +1,9 @@
 <?php
 
 session_start();
+
 include_once(__DIR__ . "/db.inc.php");
+include_once(__DIR__ . "/classes/user.php");
 
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     header("Location: index.php");
@@ -14,26 +16,28 @@ if (!empty($_POST)) {
     $email = $_POST["email"];
     $password = $_POST["password"];
 
-    $statement = $conn->prepare("SELECT * FROM users WHERE email = :email LIMIT 1");
-    $statement->bindValue(":email", $email);
-    $statement->execute();
-
-    $user = $statement->fetch(PDO::FETCH_ASSOC);
-
-    if ($user && password_verify($password, $user["password"])) {
-        $_SESSION["loggedin"] = true;
-        $_SESSION["user_id"] = $user["id"];
-        $_SESSION["email"] = $user["email"];
-        $_SESSION["is_admin"] = $user["is_admin"];
-        $_SESSION["first_name"] = $user["first_name"];
-        $_SESSION["last_name"] = $user["last_name"];
-        $_SESSION["is_admin"] = $user["is_admin"];
-        $_SESSION["currency"] = $user["currency"];
-
-        header("Location: index.php");
-        exit;
+    if ($email === "" || $password === "") {
+        $error = "Vul alle velden in.";
     } else {
-        $error = "E-mail of wachtwoord is fout!";
+        $user = new User();
+        $user->setEmail($email);
+
+        $user = $user->findByEmail($conn);
+
+        if ($user && password_verify($password, $user["password"])) {
+            $_SESSION["loggedin"] = true;
+            $_SESSION["user_id"] = $user["id"];
+            $_SESSION["email"] = $user["email"];
+            $_SESSION["first_name"] = $user["first_name"];
+            $_SESSION["last_name"] = $user["last_name"];
+            $_SESSION["is_admin"] = $user["is_admin"];
+            $_SESSION["currency"] = $user["currency"];
+
+            header("Location: index.php");
+            exit;
+        } else {
+            $error = "E-mail of wachtwoord is fout!";
+        }
     }
 }
 
