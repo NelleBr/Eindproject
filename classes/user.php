@@ -65,4 +65,13 @@ class User
 
         $statement->execute();
     }
+
+    public function findByEmail($conn)
+    {
+        $statement = $conn->prepare("SELECT * FROM users WHERE email = :email LIMIT 1");
+        $statement->bindValue(":email", $this->email);
+        $statement->execute();
+
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
 }
