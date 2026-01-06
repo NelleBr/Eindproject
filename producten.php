@@ -107,7 +107,7 @@ if ($categoryFilter === "" && $search === "") {
 
                     <button type="submit">Filter</button>
 
-                    <?php if ($categoryFilter !== ""): ?>
+                    <?php if ($categoryFilter !== "" || $search !== ""): ?>
                         <p><a href="producten.php">Fitlers wissen</a></p>
                     <?php endif; ?>
                 </form>
