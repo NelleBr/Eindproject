@@ -40,11 +40,11 @@ $products = $list->fetchAll(PDO::FETCH_ASSOC);
                         <label for="categorie">Categorie:</label>
                         <select id="categorie" name="categorie">
                             <option value="">Alle categorieën</option>
-                            <option value="schoenen">Volleybalschoenen</option>
-                            <option value="kleding">Kleding</option>
-                            <option value="ballen">Volleyballen</option>
-                            <option value="bescherming">Bescherming</option>
-                            <option value="accessoires">Accessoires</option>
+                            <option value="1">Volleybalschoenen</option>
+                            <option value="2">Kleding</option>
+                            <option value="3">Volleyballen</option>
+                            <option value="4">Bescherming</option>
+                            <option value="5">Accessoires</option>
                         </select>
                     </div>
 
