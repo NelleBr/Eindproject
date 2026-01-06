@@ -74,4 +74,13 @@ class User
 
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getPasswordHashById($conn, $id)
+    {
+        $statement = $conn->prepare("SELECT password FROM users WHERE id = :id LIMIT 1");
+        $statement->bindValue(":id", $id);
+        $statement->execute();
+
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
 }
