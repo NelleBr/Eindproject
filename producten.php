@@ -1,9 +1,25 @@
 <?php
 session_start();
 
+include_once(__DIR__ . "/db.inc.php");
+
+$list = $conn->query("SELECT 
+        products.id,
+        products.name,
+        products.price,
+        categories.name AS category_name,
+        product_images.image_path AS image
+    FROM products
+    JOIN categories ON products.category_id = categories.id
+    LEFT JOIN product_images ON product_images.product_id = products.id
+    ORDER BY products.id DESC");
+
+$products = $list->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +27,7 @@ session_start();
     <link rel="stylesheet" href="css/style.css" />
     <title>Volleybal webshop</title>
 </head>
+
 <body>
     <?php include_once(__DIR__ . "/nav.inc.php"); ?>
     <main>
@@ -40,41 +57,21 @@ session_start();
                 </form>
 
                 <div class="product-list">
-                    <a href="#" class="product-link">
-                        <article class="product-item">
-                            <img src="https://placehold.co/200x200" alt="">
-                            <h3>Mizuno Volleybalschoenen Wave Momentum 3</h3>
-                            <p class="product-category">Volleybalschoenen</p>
-                            <p class="product-price">€89,99</p>
-                        </article>
-                    </a>
+                    <?php foreach ($products as $product): ?>
+                        <a href="#" class="product-link">
+                            <article class="product-item">
+                                <?php if ($product["image"] !== null && $product["image"] !== ""): ?>
+                                    <img src="<?php echo htmlspecialchars($product["image"]); ?>" alt="">
+                                <?php else: ?>
+                                    <img src="https://placehold.co/200x200" alt="">
+                                <?php endif; ?>
 
-                    <a href="#" class="product-link">
-                        <article class="product-item">
-                            <img src="https://placehold.co/200x200" alt="">
-                            <h3>Mikasa V200W Volleybal FIVB</h3>
-                            <p class="product-category">Volleyballen</p>
-                            <p class="product-price">€94,99</p>
-                        </article>
-                    </a>
-
-                    <a href="#" class="product-link">
-                        <article class="product-item">
-                            <img src="https://placehold.co/200x200" alt="">
-                            <h3>Volleybalshirt Unisex</h3>
-                            <p class="product-category">Kleding</p>
-                            <p class="product-price">€24,99</p>
-                        </article>
-                    </a>
-
-                    <a href="#" class="product-link">
-                        <article class="product-item">
-                            <img src="https://placehold.co/200x200" alt="">
-                            <h3>Kniebeschermers Mizuno</h3>
-                            <p class="product-category">Bescherming</p>
-                            <p class="product-price">€19,99</p>
-                        </article>
-                    </a>
+                                <h3><?php echo htmlspecialchars($product["name"]); ?></h3>
+                                <p class="product-category"><?php echo htmlspecialchars($product["category_name"]); ?></p>
+                                <p class="product-price">€<?php echo htmlspecialchars($product["price"]); ?></p>
+                            </article>
+                        </a>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </section>
@@ -82,4 +79,5 @@ session_start();
 
     <?php include_once(__DIR__ . "/footer.inc.php"); ?>
 </body>
+
 </html>
