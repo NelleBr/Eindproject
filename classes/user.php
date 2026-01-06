@@ -45,4 +45,24 @@ class User
         }
         return false;
     }
+
+    public function register($conn)
+    {
+        $options = ['cost' => 13];
+        $hash = password_hash($this->password, PASSWORD_BCRYPT, $options);
+
+        $statement = $conn->prepare("
+        INSERT INTO users (first_name, last_name, email, password, is_admin, currency)
+        VALUES (:first_name, :last_name, :email, :password, :is_admin, :currency)
+        ");
+
+        $statement->bindValue(":first_name", $this->firstName);
+        $statement->bindValue(":last_name", $this->lastName);
+        $statement->bindValue(":email", $this->email);
+        $statement->bindValue(":password", $hash);
+        $statement->bindValue(":is_admin", 0);
+        $statement->bindValue(":currency", 1000);
+
+        $statement->execute();
+    }
 }
