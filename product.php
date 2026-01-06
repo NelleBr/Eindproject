@@ -5,7 +5,14 @@ session_start();
 include_once(__DIR__ . "/db.inc.php");
 include_once(__DIR__ . "/classes/product.php");
 
-$id = $_GET["id"];
+$id = "";
+if (isset($_GET["id"])) {
+    $id = $_GET["id"];
+}
+
+if (!is_numeric($id)) {
+    exit("ongeldig product");
+}
 
 if (!is_numeric($id)) {
     exit("ongeldig product");
