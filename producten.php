@@ -109,21 +109,26 @@ if ($categoryFilter === "" && $search === "") {
                 </form>
 
                 <div class="product-list">
-                    <?php foreach ($products as $product): ?>
-                        <a href="#" class="product-link">
-                            <article class="product-item">
-                                <?php if ($product["image"] !== null && $product["image"] !== ""): ?>
-                                    <img src="<?php echo htmlspecialchars($product["image"]); ?>" alt="">
-                                <?php else: ?>
-                                    <img src="https://placehold.co/200x200" alt="">
-                                <?php endif; ?>
 
-                                <h3><?php echo htmlspecialchars($product["name"]); ?></h3>
-                                <p class="product-category"><?php echo htmlspecialchars($product["category_name"]); ?></p>
-                                <p class="product-price">€<?php echo htmlspecialchars($product["price"]); ?></p>
-                            </article>
-                        </a>
-                    <?php endforeach; ?>
+                    <?php if (count($products) === 0): ?>
+                        <p>Geen producten gevonden voor je zoekopdracht.</p>
+                    <?php else: ?>
+                        <?php foreach ($products as $product): ?>
+                            <a href="#" class="product-link">
+                                <article class="product-item">
+                                    <?php if ($product["image"]): ?>
+                                        <img src="<?php echo htmlspecialchars($product["image"]); ?>" alt="">
+                                    <?php else: ?>
+                                        <img src="https://placehold.co/200x200" alt="">
+                                    <?php endif; ?>
+
+                                    <h3><?php echo htmlspecialchars($product["name"]); ?></h3>
+                                    <p class="product-category"><?php echo htmlspecialchars($product["category_name"]); ?></p>
+                                    <p class="product-price">€<?php echo htmlspecialchars($product["price"]); ?></p>
+                                </article>
+                            </a>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
             </div>
         </section>
