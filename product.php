@@ -3,31 +3,16 @@
 session_start();
 
 include_once(__DIR__ . "/db.inc.php");
+include_once(__DIR__ . "/classes/product.php");
 
 $id = $_GET["id"];
 
 if (!is_numeric($id)) {
-    exit("ongelding product");
+    exit("ongeldig product");
 }
 
-$statement = $conn->prepare("SELECT 
-        products.id,
-        products.name,
-        products.description,
-        products.price,
-        products.stock,
-        categories.name AS category_name,
-        product_images.image_path AS image
-    FROM products
-    JOIN categories ON products.category_id = categories.id
-    LEFT JOIN product_images ON product_images.product_id = products.id
-    WHERE products.id = :id
-    LIMIT 1");
-
-$statement->bindValue(":id", $id);
-$statement->execute();
-
-$product = $statement->fetch(PDO::FETCH_ASSOC);
+$productClass = new Product();
+$product = $productClass->getById($conn, $id);
 
 if (!$product) {
     exit("Product niet gevonden");
