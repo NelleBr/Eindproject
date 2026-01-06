@@ -31,5 +31,18 @@ class User
     {
         return $this->email;
     }
-    
+
+    public function emailExists($conn)
+    {
+        $check = $conn->prepare("SELECT id FROM users WHERE email = :email LIMIT 1");
+        $check->bindValue(":email", $this->email);
+        $check->execute();
+
+        $existingUser = $check->fetch(PDO::FETCH_ASSOC);
+
+        if ($existingUser) {
+            return true;
+        }
+        return false;
+    }
 }
