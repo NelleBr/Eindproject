@@ -20,7 +20,7 @@ session_start();
         <div class="container">
             <h2>Alles voor jouw volleybalspel</h2>
             <p>Koop schoenen, kleding, volleyballen en accessoires speciaal voor volleybal.</p>
-            <a href="#" class="button">Bekijk onze poducten</a>
+            <a href="producten.php" class="button">Bekijk onze poducten</a>
         </div>
     </section>
 
