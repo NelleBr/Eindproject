@@ -59,7 +59,7 @@ $products = $productClass->searchAndFilter($conn, $categoryFilter, $search);
                     <button type="submit">Filter</button>
 
                     <?php if ($categoryFilter !== "" || $search !== ""): ?>
-                        <p><a href="producten.php">Fitlers wissen</a></p>
+                        <p><a href="producten.php">Filters wissen</a></p>
                     <?php endif; ?>
                 </form>
 
