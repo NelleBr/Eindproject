@@ -29,26 +29,31 @@ session_start();
         <div class="container">
             <h2>Categorieën</h2>
             <div class="category-list">
-                <article class="category-item">
+                <a href="producten.php?categorie=1" class="category-item">
                     <h3>Volleybalschoenen</h3>
                     <p>Goede grip en demping voor op het veld.</p>
-                </article>
-                <article class="category-item">
+                </a>
+
+                <a href="producten.php?categorie=2" class="category-item">
                     <h3>Kleding</h3>
                     <p>Shirts, shorts en trainingskleding voor volleybal.</p>
-                </article>
-                <article class="category-item">
+                </a>
+
+                <a href="producten.php?categorie=3" class="category-item">
                     <h3>Volleyballen</h3>
                     <p>Wedstrijd- en trainingsballen voor indoor en beach.</p>
-                </article>
-                <article class="category-item">
+                </a>
+
+                <a href="producten.php?categorie=4" class="category-item">
                     <h3>Bescherming</h3>
                     <p>Kniebeschermers, enkelbraces en andere bescherming.</p>
-                </article>
-                <article class="category-item">
+                </a>
+
+                <a href="producten.php?categorie=5" class="category-item">
                     <h3>Accessoires</h3>
                     <p>Tassen, bidons, sokken en meer.</p>
-                </article>
+                </a>
+
             </div>
         </div>
     </section>
