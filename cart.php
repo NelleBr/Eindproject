@@ -3,6 +3,10 @@
 session_start();
 
 include_once(__DIR__ . "/classes/Cart.php");
+include_once(__DIR__ . "/db.inc.php");
+include_once(__DIR__ . "/classes/product.php");
+
+$productClass = new Product();
 
 $cart = new Cart();
 $items = $cart->getItems();
