@@ -24,6 +24,17 @@ $products = $productClass->getAll($conn);
 $categoryClass = new Category();
 $categories = $categoryClass->getAll($conn);
 
+if (isset($_POST["delete_id"])) {
+    $deleteId = $_POST["delete_id"];
+
+    if (is_numeric($deleteId)) {
+        $productClass->deleteById($conn, $deleteId);
+    }
+
+    header("Location: admin.php");
+    exit;
+}
+
 if (!empty($_POST)) {
     $name = $_POST["product_title"];
     $description = $_POST["product_description"];
@@ -130,6 +141,20 @@ if (!empty($_POST)) {
                                 <?php if ($product["image"] !== null && $product["image"] !== ""): ?>
                                     <img src="<?php echo htmlspecialchars($product["image"]); ?>" alt="" style="width:80px;height:80px;object-fit:cover;">
                                 <?php endif; ?>
+                                <form action="admin.php" method="post" style="display:inline;">
+                                    <input type="hidden" name="delete_id" value="<?php echo $product["id"]; ?>">
+                                    <button type="submit" class="delete-icon"
+                                        onclick="return confirm('Ben je zeker dat je dit product wilt verwijderen?');">
+                                        <!-- icon komt van fontawesome -->
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 640 640"
+                                            width="18"
+                                            height="18">
+                                            <path fill="#d30909"
+                                                d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z" />
+                                        </svg>
+                                    </button>
+                                </form>
                             </li>
                             <hr>
                         <?php endforeach; ?>
