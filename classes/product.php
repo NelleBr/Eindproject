@@ -170,4 +170,34 @@ class Product
         $statement->bindValue(":id", $id);
         $statement->execute();
     }
+
+    public function update($conn, $id, $categoryId, $name, $description, $price, $stock)
+    {
+        $statement = $conn->prepare("
+        UPDATE products
+        SET category_id = :category_id,
+            name = :name,
+            description = :description,
+            price = :price,
+            stock = :stock
+        WHERE id = :id
+    ");
+
+        $statement->bindValue(":category_id", $categoryId);
+        $statement->bindValue(":name", $name);
+        $statement->bindValue(":description", $description);
+        $statement->bindValue(":price", $price);
+        $statement->bindValue(":stock", $stock);
+        $statement->bindValue(":id", $id);
+        $statement->execute();
+    }
+
+    public function replaceImage($conn, $productId, $imagePath)
+    {
+        $this->deleteImagesByProductId($conn, $productId);
+
+        if ($imagePath !== "") {
+            $this->addImage($conn, $productId, $imagePath);
+        }
+    }
 }
