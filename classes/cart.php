@@ -18,4 +18,16 @@ class Cart
     {
         return count($_SESSION["cart"]) === 0;
     }
+
+    public function add($productId)
+    {
+        $productId = (int)$productId;
+
+        if (!isset($_SESSION["cart"][$productId])) {
+            $_SESSION["cart"][$productId] = 1;
+        } else {
+            $_SESSION["cart"][$productId]++;
+        }
+    }
+
 }
