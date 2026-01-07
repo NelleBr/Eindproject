@@ -60,4 +60,18 @@ class Cart
         }
         return $total;
     }
+
+    public function remove($productId)
+    {
+        $productId = (int)$productId;
+
+        if (isset($_SESSION["cart"][$productId])) {
+            unset($_SESSION["cart"][$productId]);
+        }
+    }
+
+    public function clear()
+    {
+        $_SESSION["cart"] = [];
+    }
 }
