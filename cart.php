@@ -138,8 +138,8 @@ if (isset($_GET["add"])) {
 
 
                 <div class="cart-actions">
-                    <button type="button">Verder winkelen</button>
-                    <button type="button">Afrekenen</button>
+                    <a href="producten.php" class="button">Verder winkelen</a>
+                    <a href="checkout.php" class="button">Afrekenen</a>
                 </div>
             </div>
         </section>
