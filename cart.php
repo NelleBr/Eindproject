@@ -14,6 +14,23 @@ $items = $cart->getItems();
 $lines = $cart->getLines($conn, $productClass);
 $total = $cart->getTotal($lines);
 
+if (isset($_GET["remove"])) {
+    $productId = $_GET["remove"];
+
+    if (is_numeric($productId)) {
+        $cart->remove($productId);
+    }
+
+    header("Location: cart.php");
+    exit;
+}
+
+if (isset($_GET["clear"])) {
+    $cart->clear();
+    header("Location: cart.php");
+    exit;
+}
+
 if (isset($_GET["add"])) {
     $productId = $_GET["add"];
 
@@ -45,41 +62,55 @@ if (isset($_GET["add"])) {
             <div class="container">
                 <h2>Winkelmandje</h2>
 
-                <table class="cart-table">
-                    <thead>
-                        <tr>
-                            <th>Product</th>
-                            <th>Aantal</th>
-                            <th>Prijs</th>
-                            <th>Totaal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($lines as $line): ?>
-                            <tr>
-                                <td class="cart-product">
-                                    <?php if (!empty($line["product"]["image"])): ?>
-                                        <img src="<?php echo htmlspecialchars($line["product"]["image"]); ?>" alt=""
-                                            style="width:100px;height:100px;object-fit:cover;">
-                                    <?php else: ?>
-                                        <img src="https://placehold.co/100x100" alt="">
-                                    <?php endif; ?>
+                <?php if (count($lines) === 0): ?>
+                    <p>Je winkelmandje is leeg.</p>
+                <?php else: ?>
 
-                                    <?php echo htmlspecialchars($line["product"]["name"]); ?>
-                                </td>
-                                <td><?php echo (int)$line["qty"]; ?></td>
-                                <td>€<?php echo number_format((float)$line["product"]["price"], 2, ",", "."); ?></td>
-                                <td>€<?php echo number_format((float)$line["line_total"], 2, ",", "."); ?></td>
+                    <p><a href="cart.php?clear=1">Winkelmandje leegmaken</a></p>
+
+                    <table class="cart-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Aantal</th>
+                                <th>Prijs</th>
+                                <th>Totaal</th>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="3"><strong>Totaal</strong></td>
-                            <td><strong>€<?php echo number_format((float)$total, 2, ",", "."); ?></strong></td>
-                        </tr>
-                    </tfoot>
-                </table>
+                        </thead>
+
+                        <tbody>
+                            <?php foreach ($lines as $line): ?>
+                                <tr>
+                                    <td class="cart-product">
+                                        <?php if (!empty($line["product"]["image"])): ?>
+                                            <img src="<?php echo htmlspecialchars($line["product"]["image"]); ?>" alt=""
+                                                style="width:100px;height:100px;object-fit:cover;">
+                                        <?php else: ?>
+                                            <img src="https://placehold.co/100x100" alt="">
+                                        <?php endif; ?>
+
+                                        <?php echo htmlspecialchars($line["product"]["name"]); ?>
+                                        <br>
+                                        <a href="cart.php?remove=<?php echo $line["product"]["id"]; ?>">Verwijderen</a>
+                                    </td>
+
+                                    <td><?php echo (int)$line["qty"]; ?></td>
+                                    <td>€<?php echo number_format((float)$line["product"]["price"], 2, ",", "."); ?></td>
+                                    <td>€<?php echo number_format((float)$line["line_total"], 2, ",", "."); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+
+                        <tfoot>
+                            <tr>
+                                <td colspan="3"><strong>Totaal</strong></td>
+                                <td><strong>€<?php echo number_format((float)$total, 2, ",", "."); ?></strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                <?php endif; ?>
+
 
                 <div class="cart-actions">
                     <button type="button">Verder winkelen</button>
