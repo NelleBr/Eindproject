@@ -7,6 +7,16 @@ include_once(__DIR__ . "/classes/Cart.php");
 $cart = new Cart();
 $items = $cart->getItems();
 
+if (isset($_GET["add"])) {
+    $productId = $_GET["add"];
+
+    if (is_numeric($productId)) {
+        $cart->add($productId);
+    }
+
+    header("Location: cart.php");
+    exit;
+}
 
 
 ?>
