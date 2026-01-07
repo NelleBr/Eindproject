@@ -53,13 +53,14 @@ if (!empty($_POST)) {
         $productClass->update($conn, $id, $categoryId, $name, $description, $price, $stock);
         $productClass->replaceImage($conn, $id, $image);
 
-        header("Location: admin.php");
+        header("Location: admin.php?updated=1");
         exit;
     }
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -67,68 +68,70 @@ if (!empty($_POST)) {
     <link rel="stylesheet" href="css/style.css" />
     <title>Product bewerken</title>
 </head>
+
 <body>
-<?php include_once(__DIR__ . "/nav.inc.php"); ?>
+    <?php include_once(__DIR__ . "/nav.inc.php"); ?>
 
-<main>
-    <section id="admin">
-        <div class="container">
-            <h2>Product bewerken</h2>
+    <main>
+        <section id="admin">
+            <div class="container">
+                <h2>Product bewerken</h2>
 
-            <?php if ($error !== ""): ?>
-                <p><?php echo htmlspecialchars($error); ?></p>
-            <?php endif; ?>
+                <?php if ($error !== ""): ?>
+                    <p><?php echo htmlspecialchars($error); ?></p>
+                <?php endif; ?>
 
-            <form action="" method="post" class="form-card">
-                <div class="form-group">
-                    <label for="product_title">Titel</label>
-                    <input type="text" id="product_title" name="product_title"
-                        value="<?php echo htmlspecialchars($product["name"]); ?>">
-                </div>
+                <form action="" method="post" class="form-card">
+                    <div class="form-group">
+                        <label for="product_title">Titel</label>
+                        <input type="text" id="product_title" name="product_title"
+                            value="<?php echo htmlspecialchars($product["name"]); ?>">
+                    </div>
 
-                <div class="form-group">
-                    <label for="product_description">Beschrijving</label>
-                    <textarea id="product_description" name="product_description"><?php echo htmlspecialchars($product["description"]); ?></textarea>
-                </div>
+                    <div class="form-group">
+                        <label for="product_description">Beschrijving</label>
+                        <textarea id="product_description" name="product_description"><?php echo htmlspecialchars($product["description"]); ?></textarea>
+                    </div>
 
-                <div class="form-group">
-                    <label for="product_stock">Voorraad</label>
-                    <input type="number" id="product_stock" name="product_stock"
-                        value="<?php echo htmlspecialchars($product["stock"]); ?>">
-                </div>
+                    <div class="form-group">
+                        <label for="product_stock">Voorraad</label>
+                        <input type="number" id="product_stock" name="product_stock"
+                            value="<?php echo htmlspecialchars($product["stock"]); ?>">
+                    </div>
 
-                <div class="form-group">
-                    <label for="product_category">Categorie</label>
-                    <select id="product_category" name="product_category">
-                        <?php foreach ($categories as $category): ?>
-                            <option value="<?php echo $category["id"]; ?>"
-                                <?php if ($category["name"] === $product["category_name"]) echo "selected"; ?>>
-                                <?php echo htmlspecialchars($category["name"]); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
+                    <div class="form-group">
+                        <label for="product_category">Categorie</label>
+                        <select id="product_category" name="product_category">
+                            <?php foreach ($categories as $category): ?>
+                                <option value="<?php echo $category["id"]; ?>"
+                                    <?php if ($category["name"] === $product["category_name"]) echo "selected"; ?>>
+                                    <?php echo htmlspecialchars($category["name"]); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
 
-                <div class="form-group">
-                    <label for="product_price">Prijs (€)</label>
-                    <input type="number" id="product_price" name="product_price" step="0.01"
-                        value="<?php echo htmlspecialchars($product["price"]); ?>">
-                </div>
+                    <div class="form-group">
+                        <label for="product_price">Prijs (€)</label>
+                        <input type="number" id="product_price" name="product_price" step="0.01"
+                            value="<?php echo htmlspecialchars($product["price"]); ?>">
+                    </div>
 
-                <div class="form-group">
-                    <label for="product_image">Afbeelding URL</label>
-                    <input type="text" id="product_image" name="product_image"
-                        value="<?php echo htmlspecialchars($product["image"]); ?>">
-                </div>
+                    <div class="form-group">
+                        <label for="product_image">Afbeelding URL</label>
+                        <input type="text" id="product_image" name="product_image"
+                            value="<?php echo htmlspecialchars($product["image"]); ?>">
+                    </div>
 
-                <button type="submit">Opslaan</button>
-            </form>
+                    <button type="submit">Opslaan</button>
+                </form>
 
-            <p style="margin-top:15px;"><a href="admin.php">← Terug naar admin</a></p>
-        </div>
-    </section>
-</main>
+                <p style="margin-top:15px;"><a href="admin.php">← Terug naar admin</a></p>
+            </div>
+        </section>
+    </main>
 
-<?php include_once(__DIR__ . "/footer.inc.php"); ?>
+    <?php include_once(__DIR__ . "/footer.inc.php"); ?>
 </body>
+
 </html>

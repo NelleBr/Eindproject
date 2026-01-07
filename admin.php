@@ -89,6 +89,10 @@ if (!empty($_POST)) {
                     </p>
                 <?php endif; ?>
 
+                <?php if (isset($_GET["updated"]) && $_GET["updated"] == "1"): ?>
+                    <p>Product succesvol aangepast.</p>
+                <?php endif; ?>
+
                 <div class="admin-section">
                     <h3>Nieuw product aanmaken</h3>
                     <?php if ($error !== ""): ?>
