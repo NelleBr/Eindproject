@@ -94,4 +94,22 @@ class User
         $update->bindValue(":id", $id);
         $update->execute();
     }
+
+    public function getCurrencyById($conn, $userId)
+    {
+        $stmt = $conn->prepare("SELECT currency FROM users WHERE id = :id LIMIT 1");
+        $stmt->bindValue(":id", $userId);
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row ? (int)$row["currency"] : 0;
+    }
+
+    public function deductCurrency($conn, $userId, $amount)
+    {
+        $stmt = $conn->prepare("UPDATE users SET currency = currency - :amount WHERE id = :id");
+        $stmt->bindValue(":amount", (int)$amount, PDO::PARAM_INT);
+        $stmt->bindValue(":id", (int)$userId, PDO::PARAM_INT);
+        $stmt->execute();
+    }
 }
