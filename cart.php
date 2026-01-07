@@ -2,6 +2,12 @@
 
 session_start();
 
+include_once(__DIR__ . "/classes/Cart.php");
+
+$cart = new Cart();
+$items = $cart->getItems();
+
+
 
 ?>
 <!DOCTYPE html>
