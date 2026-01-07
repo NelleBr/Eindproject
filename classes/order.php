@@ -27,4 +27,44 @@ class Order
         $stmt->bindValue(":price_each", $priceEach);
         $stmt->execute();
     }
+
+    public function getByUserId($conn, $userId)
+    {
+        $statement = $conn->prepare("
+            SELECT id, user_id, total_price, created_at
+            FROM orders
+            WHERE user_id = :user_id
+            ORDER BY created_at DESC, id DESC
+        ");
+        $statement->bindValue(":user_id", $userId, PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getItemsByOrderId($conn, $orderId)
+    {
+        $statement = $conn->prepare("
+        SELECT 
+            order_items.product_id,
+            order_items.quantity,
+            order_items.price_each,
+            products.name AS product_name,
+            (
+                SELECT product_images.image_path
+                FROM product_images
+                WHERE product_images.product_id = products.id
+                ORDER BY product_images.id ASC
+                LIMIT 1
+            ) AS image
+        FROM order_items
+        JOIN products ON products.id = order_items.product_id
+        WHERE order_items.order_id = :order_id
+        ORDER BY order_items.id ASC
+    ");
+        $statement->bindValue(":order_id", (int)$orderId, PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
