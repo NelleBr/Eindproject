@@ -31,7 +31,7 @@ if (isset($_POST["delete_id"])) {
         $productClass->deleteById($conn, $deleteId);
     }
 
-    header("Location: admin.php");
+    header("Location: admin.php?deleted=1");
     exit;
 }
 
@@ -82,6 +82,12 @@ if (!empty($_POST)) {
         <section id="admin">
             <div class="container">
                 <h2>Admin dashboard</h2>
+
+                <?php if (isset($_GET["deleted"])): ?>
+                    <p class="success-message">
+                        Product succesvol verwijderd.
+                    </p>
+                <?php endif; ?>
 
                 <div class="admin-section">
                     <h3>Nieuw product aanmaken</h3>
