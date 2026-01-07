@@ -99,6 +99,7 @@ foreach ($options as $opt) {
                                 <a href="cart.php?add=<?php echo $product["id"]; ?>" class="button">Toevoegen aan winkelmandje</a>
                             </form>
                         <?php endif ?>
+                        <a href="cart.php?add=<?php echo $product["id"]; ?>" class="button">Toevoegen aan winkelmandje</a>
                     </div>
                 </div>
             </div>
