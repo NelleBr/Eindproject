@@ -11,6 +11,9 @@ $productClass = new Product();
 $cart = new Cart();
 $items = $cart->getItems();
 
+$lines = $cart->getLines($conn, $productClass);
+$total = $cart->getTotal($lines);
+
 if (isset($_GET["add"])) {
     $productId = $_GET["add"];
 
@@ -52,30 +55,28 @@ if (isset($_GET["add"])) {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="cart-product">
-                                <img src="https://placehold.co/100x100" alt="">
-                                Demo product
-                            </td>
-                            <td>1</td>
-                            <td>€50,00</td>
-                            <td>€50,00</td>
-                        </tr>
+                        <?php foreach ($lines as $line): ?>
+                            <tr>
+                                <td class="cart-product">
+                                    <?php if (!empty($line["product"]["image"])): ?>
+                                        <img src="<?php echo htmlspecialchars($line["product"]["image"]); ?>" alt=""
+                                            style="width:100px;height:100px;object-fit:cover;">
+                                    <?php else: ?>
+                                        <img src="https://placehold.co/100x100" alt="">
+                                    <?php endif; ?>
 
-                        <tr>
-                            <td class="cart-product">
-                                <img src="https://placehold.co/100x100" alt="">
-                                Mikasa V200W Volleybal FIVB
-                            </td>
-                            <td>2</td>
-                            <td>€94,99</td>
-                            <td>€189,98</td>
-                        </tr>
+                                    <?php echo htmlspecialchars($line["product"]["name"]); ?>
+                                </td>
+                                <td><?php echo (int)$line["qty"]; ?></td>
+                                <td>€<?php echo number_format((float)$line["product"]["price"], 2, ",", "."); ?></td>
+                                <td>€<?php echo number_format((float)$line["line_total"], 2, ",", "."); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                     <tfoot>
                         <tr>
                             <td colspan="3"><strong>Totaal</strong></td>
-                            <td><strong>€239,98</strong></td>
+                            <td><strong>€<?php echo number_format((float)$total, 2, ",", "."); ?></strong></td>
                         </tr>
                     </tfoot>
                 </table>
