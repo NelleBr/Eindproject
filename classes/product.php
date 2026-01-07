@@ -154,4 +154,20 @@ class Product
 
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function deleteImagesByProductId($conn, $id)
+    {
+        $statement = $conn->prepare("DELETE FROM product_images WHERE product_id = :id");
+        $statement->bindValue(":id", $id);
+        $statement->execute();
+    }
+
+    public function deleteById($conn, $id)
+    {
+        $this->deleteImagesByProductId($conn, $id);
+
+        $statement = $conn->prepare("DELETE FROM products WHERE id = :id");
+        $statement->bindValue(":id", $id);
+        $statement->execute();
+    }
 }
