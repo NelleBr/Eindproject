@@ -74,4 +74,26 @@ class Cart
     {
         $_SESSION["cart"] = [];
     }
+
+    public function increase($productId)
+    {
+        $productId = (int)$productId;
+
+        if (isset($_SESSION["cart"][$productId])) {
+            $_SESSION["cart"][$productId]++;
+        }
+    }
+
+    public function decrease($productId)
+    {
+        $productId = (int)$productId;
+
+        if (isset($_SESSION["cart"][$productId])) {
+            $_SESSION["cart"][$productId]--;
+
+            if ($_SESSION["cart"][$productId] <= 0) {
+                unset($_SESSION["cart"][$productId]);
+            }
+        }
+    }
 }

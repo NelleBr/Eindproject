@@ -14,6 +14,19 @@ $items = $cart->getItems();
 $lines = $cart->getLines($conn, $productClass);
 $total = $cart->getTotal($lines);
 
+if (isset($_POST["plus_id"])) {
+    $cart->increase($_POST["plus_id"]);
+    header("Location: cart.php");
+    exit;
+}
+
+if (isset($_POST["minus_id"])) {
+    $cart->decrease($_POST["minus_id"]);
+    header("Location: cart.php");
+    exit;
+}
+
+
 if (isset($_GET["remove"])) {
     $productId = $_GET["remove"];
 
@@ -94,7 +107,19 @@ if (isset($_GET["add"])) {
                                         <a href="cart.php?remove=<?php echo $line["product"]["id"]; ?>">Verwijderen</a>
                                     </td>
 
-                                    <td><?php echo (int)$line["qty"]; ?></td>
+                                    <td>
+                                        <form action="cart.php" method="post" style="display:inline;">
+                                            <input type="hidden" name="minus_id" value="<?php echo (int)$line["product"]["id"]; ?>">
+                                            <button type="submit">-</button>
+                                        </form>
+
+                                        <?php echo (int)$line["qty"]; ?>
+
+                                        <form action="cart.php" method="post" style="display:inline;">
+                                            <input type="hidden" name="plus_id" value="<?php echo (int)$line["product"]["id"]; ?>">
+                                            <button type="submit">+</button>
+                                        </form>
+                                    </td>
                                     <td>€<?php echo number_format((float)$line["product"]["price"], 2, ",", "."); ?></td>
                                     <td>€<?php echo number_format((float)$line["line_total"], 2, ",", "."); ?></td>
                                 </tr>
