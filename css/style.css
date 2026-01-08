@@ -56,9 +56,26 @@ nav a:hover {
 }
 /* Intro sectie */
 #intro {
-    background-color: #fefefe;
+    position: relative;
     text-align: center;
-    padding: 40px 0;
+    padding: 120px 0;
+    color: #fefefe;
+    background-image: url(../images/volleyball_banner.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#intro::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(48, 70, 116, 0.65);
+}
+
+#intro .container {
+    position: relative;
+    z-index: 1;
 }
 
 #intro h2 {
