@@ -683,6 +683,30 @@ footer p {
   background-color: #81add0;
 }
 
+/* logedout */
+
+#logout .container {
+  padding: 20px;
+}
+
+#logout h2 {
+  margin-bottom: 10px;
+}
+
+#logout p {
+  margin-top: 10px;
+  line-height: 1.4;
+}
+
+#logout a {
+  color: #304674;
+  font-weight: bold;
+}
+
+#logout a:hover {
+  text-decoration: underline;
+}
+
 /* responsive */
 @media (max-width: 900px) {
     .product-list {
