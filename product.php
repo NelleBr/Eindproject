@@ -75,7 +75,7 @@ $reviews = $reviewClass->getByProductId($conn, (int)$product["id"]);
                     <h2><?php echo htmlspecialchars($product["name"]); ?></h2>
                     <p class="product-category"><?php echo htmlspecialchars($product["category_name"]); ?></p>
                     <p class="product-price">€<?php echo htmlspecialchars($product["price"]); ?></p>
-                    <p><?php echo htmlspecialchars($product["description"]); ?></p>
+                    <p><?php echo nl2br(htmlspecialchars($product["description"], ENT_QUOTES, "UTF-8")); ?></p>
 
                     <?php if (count($groupedOptions) > 0): ?>
                         <div class="product-options">
