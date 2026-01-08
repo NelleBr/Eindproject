@@ -30,7 +30,7 @@ section {
 /* Header */
 header {
     background-color: #304674;
-    color: #fefefe;
+    color: #fff;
     padding: 25px 0;
 }
 
@@ -48,18 +48,19 @@ header .container {
 nav a {
     margin-left: 15px;
     font-size: 0.9em;
-    color: #fefefe;
+    color: #fff;
 }
 
 nav a:hover {
     text-decoration: underline;
 }
+
 /* Intro sectie */
 #intro {
     position: relative;
     text-align: center;
     padding: 120px 0;
-    color: #fefefe;
+    color: #fff;
     background-image: url(../images/volleyball_banner.png);
     background-size: cover;
     background-position: center;
@@ -103,7 +104,7 @@ nav a:hover {
 
 /* Categorieën */
 #categories {
-    background-color: #ffffff;
+    background-color: #fff;
 }
 
 #categories h2 {
@@ -122,7 +123,7 @@ nav a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fefefe;
+    color: #fff;
     overflow: hidden;
     background-size: cover;
     background-position: center;
@@ -151,7 +152,7 @@ nav a:hover {
 
 /* Uitgelichte producten */
 #featured-products {
-    background-color: #fefefe;
+    background-color: #fff;
 }
 
 #featured-products h2 {
@@ -172,7 +173,7 @@ nav a:hover {
   border: 2px solid #d8e1e8;
   border-radius: 8px;
   padding: 15px;
-  background-color: #fefefe;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   min-height: 320px;   
@@ -259,10 +260,10 @@ nav a:hover {
   background: rgba(152, 186, 213, 0.25);
 }
 
-
+/* Footer */
 footer {
     background-color: #304674;
-    color: #fefefe;
+    color: #fff;
     text-align: center;
     padding: 25px 0;
     margin-top: 20px;
@@ -278,27 +279,35 @@ footer p {
   margin: 10px 0 18px;
   color: #304674;
   font-weight: bold;
+  width: 100%;
 }
+
 .back-link:hover{
   text-decoration: underline;
 }
 
-.product-detail-grid{
+#product-detail .container{
   display: flex;
+  flex-wrap: wrap;
   gap: 30px;
   align-items: flex-start;
 }
 
+.product-detail-grid{
+  flex: 0 0 450px; 
+  display: block;
+}
+
 .product-detail-grid img{
   width: 100%;
-  max-width: 450px; 
   height: auto;
   border-radius: 10px;
   display: block;
 }
 
 .product-detail-right{
-  flex: 1;
+  flex: 1;           
+  min-width: 280px;  
   padding-top: 6px;
 }
 
@@ -315,35 +324,7 @@ footer p {
   margin-bottom: 14px;
 }
 
-/* Opties blok */
-#product-detail .container{
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-  align-items: flex-start;
-}
-
-#product-detail .back-link{
-  width: 100%;
-}
-
-#product-detail .product-detail-grid{
-  flex: 0 0 450px; 
-  display: block; 
-}
-
-#product-detail .product-detail-grid img{
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-  display: block;
-}
-
-#product-detail .product-detail-right{
-  flex: 1;           
-  min-width: 280px;  
-}
-
+/* Opties */
 .product-options h3{
     margin-top: 10px;
 }
@@ -382,6 +363,7 @@ footer p {
 /* Reviews */
 #reviews{
   margin-top: 26px;
+  width: 100%;
 }
 
 .review-form{
@@ -528,14 +510,11 @@ footer p {
 
 #checkout .container p {
   line-height: 1.4;
+  padding: 0;
 }
 
 #checkout .container p strong {
   color: #304674;
-}
-
-#checkout .container p {
-  padding: 0;
 }
 
 #checkout .container {
@@ -552,7 +531,6 @@ footer p {
 }
 
 /* account */
-
 #account h2 {
   margin-bottom: 12px;
 }
@@ -604,6 +582,7 @@ footer p {
   border-radius: 12px;
   background: #fff;
 }
+
 .account-orders ul {
   margin: 10px 0 0 15px;
   padding: 0;
@@ -628,8 +607,83 @@ footer p {
   color: #304674;
 }
 
+/* login, registreer, wachtwoord wijzigen */
+.form-card {
+  margin-top: 12px;
+  max-width: 420px;
+}
 
-/* responsice producten */
+.form-group {
+  margin-top: 12px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.9em;
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #304674;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 2px solid #d8e1e8;
+  border-radius: 8px;
+  outline: none;
+  background: #fff;
+  font-size: 0.95em;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #98bad5;
+}
+
+#login p,
+#register p,
+#change-password p {
+  margin-top: 12px;
+  line-height: 1.4;
+}
+
+#login a,
+#register a,
+#change-password a {
+  color: #304674;
+  font-weight: bold;
+}
+
+#login a:hover,
+#register a:hover,
+#change-password a:hover {
+  text-decoration: underline;
+}
+
+#login button,
+#register button,
+#change-password button {
+  margin-top: 14px;
+  width: 100%;
+  padding: 10px 12px;
+  background-color: #98bad5;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#login button:hover,
+#register button:hover,
+#change-password button:hover {
+  background-color: #81add0;
+}
+
+/* responsive */
 @media (max-width: 900px) {
     .product-list {
         grid-template-columns: repeat(2, 1fr);
@@ -638,6 +692,7 @@ footer p {
     .filter-row {
         grid-template-columns: 1fr;
     }
+
     .filter-actions {
         justify-content: flex-start;
     }
@@ -655,5 +710,9 @@ footer p {
 
    .cart-actions {
         flex-direction: column;
+    }
+
+    .form-card {
+        max-width: 100%;
     }
 }
