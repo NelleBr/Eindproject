@@ -445,6 +445,67 @@ footer p {
   color: #666;
 }
 
+/* winkelmandje */
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.cart-table th {
+  text-align: left;
+  padding: 12px;
+  background: #f5f8fb;
+  color: #304674;
+  border-bottom: 2px solid #d8e1e8;
+}
+
+.cart-table td {
+  padding: 12px;
+  border-bottom: 1px solid #d8e1e8;
+  vertical-align: middle;
+}
+
+.cart-product {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cart-product a {
+  display: inline-block;
+  color: #b00020;
+}
+
+.cart-product a:hover {
+  text-decoration: underline;
+}
+
+.cart-table button {
+  padding: 6px 10px;
+  border: 2px solid #d8e1e8;
+  background: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.cart-table button:hover {
+  border-color: #98bad5;
+  background: rgba(152, 186, 213, 0.25);
+}
+
+.cart-table tfoot td {
+  background: #f5f8fb;
+  font-weight: bold;
+  border-top: 2px solid #d8e1e8;
+}
+
+.cart-actions {
+  margin-top: 15px;
+  display: flex;
+  gap: 12px;
+}
 
 
 /* responsice producten */
