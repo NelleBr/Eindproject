@@ -40,7 +40,7 @@ $featuredProducts = $productClass->getLatest($conn, 4);
             <h2>Categorieën</h2>
             <div class="category-list">
                 <?php foreach ($categories as $category): ?>
-                    <a href="producten.php?categorie=<?php echo $category["id"]; ?>" class="category-item">
+                    <a href="producten.php?categorie=<?php echo $category["id"]; ?>" class="category-item cat-<?php echo (int)$category["id"]; ?>">
                         <h3><?php echo htmlspecialchars($category["name"]); ?></h3>
                     </a>
                 <?php endforeach; ?>
