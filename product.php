@@ -60,56 +60,56 @@ $reviews = $reviewClass->getByProductId($conn, (int)$product["id"]);
     <?php include_once(__DIR__ . "/nav.inc.php"); ?>
     <main>
         <section id="product-detail">
-            < class="container">
+            <div class="container">
                 <a href="producten.php" class="back-link">← Terug naar producten</a>
 
-                    <div class="product-detail-grid">
-                        <?php if (!empty($product["image"])): ?>
-                            <img src="<?php echo htmlspecialchars($product["image"]); ?>" alt="">
-                        <?php else: ?>
-                            <img src="https://placehold.co/500x500" alt="">
-                        <?php endif; ?>
-                    </div>
+                <div class="product-detail-grid">
+                    <?php if (!empty($product["image"])): ?>
+                        <img src="<?php echo htmlspecialchars($product["image"]); ?>" alt="">
+                    <?php else: ?>
+                        <img src="https://placehold.co/500x500" alt="">
+                    <?php endif; ?>
+                </div>
 
-                    <div class="product-detail-right">
-                        <h2><?php echo htmlspecialchars($product["name"]); ?></h2>
-                        <p class="product-category"><?php echo htmlspecialchars($product["category_name"]); ?></p>
-                        <p class="product-price">€<?php echo htmlspecialchars($product["price"]); ?></p>
-                        <p><?php echo htmlspecialchars($product["description"]); ?></p>
+                <div class="product-detail-right">
+                    <h2><?php echo htmlspecialchars($product["name"]); ?></h2>
+                    <p class="product-category"><?php echo htmlspecialchars($product["category_name"]); ?></p>
+                    <p class="product-price">€<?php echo htmlspecialchars($product["price"]); ?></p>
+                    <p><?php echo htmlspecialchars($product["description"]); ?></p>
 
-                        <?php if (count($groupedOptions) > 0): ?>
-                            <div class="product-options">
-                                <h3>Opties</h3>
+                    <?php if (count($groupedOptions) > 0): ?>
+                        <div class="product-options">
+                            <h3>Opties</h3>
 
-                                <form action="cart.php" method="get" class="options-form">
-                                    <input type="hidden" name="add" value="<?php echo (int)$product["id"]; ?>">
+                            <form action="cart.php" method="get" class="options-form">
+                                <input type="hidden" name="add" value="<?php echo (int)$product["id"]; ?>">
 
-                                    <?php foreach ($groupedOptions as $optionName => $values): ?>
-                                        <div class="form-group">
-                                            <label for="<?php echo htmlspecialchars($optionName); ?>">
-                                                <?php echo htmlspecialchars(ucfirst($optionName)); ?>
-                                            </label>
+                                <?php foreach ($groupedOptions as $optionName => $values): ?>
+                                    <div class="form-group">
+                                        <label for="<?php echo htmlspecialchars($optionName); ?>">
+                                            <?php echo htmlspecialchars(ucfirst($optionName)); ?>
+                                        </label>
 
-                                            <select id="<?php echo htmlspecialchars($optionName); ?>"
-                                                name="option[<?php echo htmlspecialchars($optionName); ?>]">
-                                                <option value="">Kies <?php echo htmlspecialchars($optionName); ?></option>
+                                        <select id="<?php echo htmlspecialchars($optionName); ?>"
+                                            name="option[<?php echo htmlspecialchars($optionName); ?>]">
+                                            <option value="">Kies <?php echo htmlspecialchars($optionName); ?></option>
 
-                                                <?php foreach ($values as $value): ?>
-                                                    <option value="<?php echo htmlspecialchars($value); ?>">
-                                                        <?php echo htmlspecialchars($value); ?>
-                                                    </option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </div>
-                                    <?php endforeach; ?>
+                                            <?php foreach ($values as $value): ?>
+                                                <option value="<?php echo htmlspecialchars($value); ?>">
+                                                    <?php echo htmlspecialchars($value); ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                <?php endforeach; ?>
 
-                                    <button type="submit" class="button">Toevoegen aan winkelmandje</button>
-                                </form>
-                            </div>
-                        <?php else: ?>
-                            <a href="cart.php?add=<?php echo (int)$product["id"]; ?>" class="button">Toevoegen aan winkelmandje</a>
-                        <?php endif; ?>
-                    </div>
+                                <button type="submit" class="button">Toevoegen aan winkelmandje</button>
+                            </form>
+                        </div>
+                    <?php else: ?>
+                        <a href="cart.php?add=<?php echo (int)$product["id"]; ?>" class="button">Toevoegen aan winkelmandje</a>
+                    <?php endif; ?>
+                </div>
 
                 <hr style="margin:30px 0;">
 
