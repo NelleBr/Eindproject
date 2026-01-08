@@ -200,4 +200,27 @@ class Product
             $this->addImage($conn, $productId, $imagePath);
         }
     }
+
+    public function getStockById($conn, $id)
+    {
+        $stmt = $conn->prepare("SELECT stock FROM products WHERE id = :id LIMIT 1");
+        $stmt->bindValue(":id", (int)$id, PDO::PARAM_INT);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row ? (int)$row["stock"] : 0;
+    }
+
+    public function decreaseStock($conn, $id, $qty)
+    {
+        $stmt = $conn->prepare("
+        UPDATE products
+        SET stock = stock - :qty
+        WHERE id = :id AND stock >= :qty
+    ");
+        $stmt->bindValue(":qty", (int)$qty, PDO::PARAM_INT);
+        $stmt->bindValue(":id", (int)$id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->rowCount() === 1;
+    }
 }
