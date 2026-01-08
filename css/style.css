@@ -144,11 +144,11 @@ nav a:hover {
     color: #fff;
 }
 
-.category-item.cat-1 { background-image: url("../images/accessoires.png"); }
-.category-item.cat-2 { background-image: url("../images/bescherming.png"); }
-.category-item.cat-3 { background-image: url("../images/kleding.png"); }
-.category-item.cat-4 { background-image: url("../images/volleybal.png"); }
-.category-item.cat-5 { background-image: url("../images/volleybalschoene.png"); }
+.category-item.cat-1 { background-image: url("../images/volleybalschoene.png"); }
+.category-item.cat-2 { background-image: url("../images/kleding.png"); }
+.category-item.cat-3 { background-image: url("../images/volleybal.png"); }
+.category-item.cat-4 { background-image: url("../images/bescherming.png"); }
+.category-item.cat-5 { background-image: url("../images/accessoires.png"); }
 
 /* Uitgelichte producten */
 #featured-products {
