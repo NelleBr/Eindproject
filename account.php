@@ -39,13 +39,10 @@ $orders = $orderClass->getByUserId($conn, (int)$_SESSION["user_id"]);
                     </p>
                 </div>
 
-                <div class="account-actions">
-                    <h3>Acties</h3>
-                    <ul>
-                        <li><a href="cart.php">Winkelmandje bekijken</a></li>
-                        <li><a href="change-password.php">Wachtwoord wijzigen</a></li>
-                        <li><a href="logout.php">Uitloggen</a></li>
-                    </ul>
+                <div class="account-links">
+                    <a href="cart.php" class="button">Winkelmandje</a>
+                    <a href="change-password.php" class="button button-outline">Wachtwoord wijzigen</a>
+                    <a href="logout.php" class="button button-outline">Uitloggen</a>
                 </div>
 
                 <div class="account-orders">
@@ -55,7 +52,7 @@ $orders = $orderClass->getByUserId($conn, (int)$_SESSION["user_id"]);
                         <p>Je hebt nog geen bestellingen.</p>
                     <?php else: ?>
                         <?php foreach ($orders as $order): ?>
-                            <div class="order-card" style="margin-top:15px; padding:15px; border:1px solid #d8e1e8; border-radius:8px;">
+                            <div class="order-card">
                                 <p>
                                     <strong>Bestelling #<?php echo (int)$order["id"]; ?></strong><br>
                                     Datum: <?php echo htmlspecialchars($order["created_at"]); ?><br>
@@ -69,13 +66,11 @@ $orders = $orderClass->getByUserId($conn, (int)$_SESSION["user_id"]);
                                 <?php if (count($items) > 0): ?>
                                     <ul style="margin: 10px 0 0 15px;">
                                         <?php foreach ($items as $item): ?>
-                                            <li style="display:flex; gap:12px; align-items:center; margin-bottom:10px;">
+                                            <li>
                                                 <?php if (!empty($item["image"])): ?>
-                                                    <img src="<?php echo htmlspecialchars($item["image"]); ?>" alt=""
-                                                        style="width:60px;height:60px;object-fit:cover;border-radius:6px;">
+                                                    <img src="<?php echo htmlspecialchars($item["image"]); ?>" alt="">
                                                 <?php else: ?>
-                                                    <img src="https://placehold.co/60x60" alt=""
-                                                        style="width:60px;height:60px;object-fit:cover;border-radius:6px;">
+                                                    <img src="https://placehold.co/60x60" alt="">
                                                 <?php endif; ?>
 
                                                 <div>
