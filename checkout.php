@@ -7,10 +7,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 }
 
 include_once(__DIR__ . "/db.inc.php");
-include_once(__DIR__ . "/classes/Cart.php");
+include_once(__DIR__ . "/classes/cart.php");
 include_once(__DIR__ . "/classes/product.php");
-include_once(__DIR__ . "/classes/User.php");
-include_once(__DIR__ . "/classes/Order.php");
+include_once(__DIR__ . "/classes/user.php");
+include_once(__DIR__ . "/classes/order.php");
 
 $cart = new Cart();
 $productClass = new Product();
