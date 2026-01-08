@@ -126,7 +126,7 @@ if (!empty($_POST)) {
                     <button type="submit">Opslaan</button>
                 </form>
 
-                <p style="margin-top:15px;"><a href="admin.php">← Terug naar admin</a></p>
+                <p><a class="back-link" href="admin.php">← Terug naar admin</a></p>
             </div>
         </section>
     </main>
