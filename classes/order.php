@@ -67,4 +67,21 @@ class Order
 
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function userBoughtProduct($conn, $userId, $productId)
+    {
+        $stmt = $conn->prepare("
+        SELECT 1
+        FROM orders
+        JOIN order_items ON order_items.order_id = orders.id
+        WHERE orders.user_id = :user_id
+          AND order_items.product_id = :product_id
+        LIMIT 1
+    ");
+        $stmt->bindValue(":user_id", (int)$userId, PDO::PARAM_INT);
+        $stmt->bindValue(":product_id", (int)$productId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchColumn() ? true : false;
+    }
 }
