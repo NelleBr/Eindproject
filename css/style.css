@@ -572,7 +572,11 @@ footer p {
     }
 
     #checkout .container p strong {
-    min-width: 0;
-    display: inline;
-  }
+        min-width: 0;
+        display: inline;
+    }
+
+   .cart-actions {
+        flex-direction: column;
+    }
 }
