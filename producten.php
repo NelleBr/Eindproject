@@ -41,33 +41,37 @@ $products = $productClass->searchAndFilter($conn, $categoryFilter, $search);
             <div class="container">
                 <h2>Alle producten</h2>
 
-                <form class="product-filters" action="#" method="get">
-                    <div>
-                        <label for="categorie">Categorie:</label>
-                        <select id="categorie" name="categorie">
-                            <option value="">Alle categorieën</option>
+                <form class="product-filters" action="producten.php" method="get">
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label for="categorie">Categorie</label>
+                            <select id="categorie" name="categorie">
+                                <option value="">Alle categorieën</option>
+                                <?php foreach ($categories as $category): ?>
+                                    <option value="<?php echo $category["id"]; ?>"
+                                        <?php if ($categoryFilter == $category["id"]) echo "selected"; ?>>
+                                        <?php echo htmlspecialchars($category["name"]); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
 
-                            <?php foreach ($categories as $category): ?>
-                                <option value="<?php echo $category["id"]; ?>"
-                                    <?php if ($categoryFilter == $category["id"]) echo "selected"; ?>>
-                                    <?php echo htmlspecialchars($category["name"]); ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
+                        <div class="filter-group">
+                            <label for="zoekterm">Zoeken</label>
+                            <input type="text" id="zoekterm" name="zoekterm" placeholder="Zoek een product"
+                                value="<?php echo htmlspecialchars($search); ?>">
+                        </div>
+
+                        <div class="filter-actions">
+                            <button type="submit" class="button">Filter</button>
+
+                            <?php if ($categoryFilter !== "" || $search !== ""): ?>
+                                <a class="button button-delete-filter" href="producten.php">Filters wissen</a>
+                            <?php endif; ?>
+                        </div>
                     </div>
-
-                    <div>
-                        <label for="zoekterm">Zoeken:</label>
-                        <input type="text" id="zoekterm" name="zoekterm" placeholder="Zoek een product"
-                            value="<?php echo htmlspecialchars($search); ?>">
-                    </div>
-
-                    <button type="submit">Filter</button>
-
-                    <?php if ($categoryFilter !== "" || $search !== ""): ?>
-                        <p><a href="producten.php">Filters wissen</a></p>
-                    <?php endif; ?>
                 </form>
+
 
                 <div class="product-list">
 
