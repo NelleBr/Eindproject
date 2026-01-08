@@ -60,11 +60,10 @@ $reviews = $reviewClass->getByProductId($conn, (int)$product["id"]);
     <?php include_once(__DIR__ . "/nav.inc.php"); ?>
     <main>
         <section id="product-detail">
-            <div class="container">
-                <p><a href="producten.php">← Terug naar producten</a></p>
+            < class="container">
+                <a href="producten.php" class="back-link">← Terug naar producten</a>
 
-                <div class="product-detail-grid">
-                    <div class="product-detail-left">
+                    <div class="product-detail-grid">
                         <?php if (!empty($product["image"])): ?>
                             <img src="<?php echo htmlspecialchars($product["image"]); ?>" alt="">
                         <?php else: ?>
@@ -79,37 +78,38 @@ $reviews = $reviewClass->getByProductId($conn, (int)$product["id"]);
                         <p><?php echo htmlspecialchars($product["description"]); ?></p>
 
                         <?php if (count($groupedOptions) > 0): ?>
-                            <h3>Opties</h3>
+                            <div class="product-options">
+                                <h3>Opties</h3>
 
-                            <form action="cart.php" method="get">
-                                <input type="hidden" name="add" value="<?php echo (int)$product["id"]; ?>">
+                                <form action="cart.php" method="get" class="options-form">
+                                    <input type="hidden" name="add" value="<?php echo (int)$product["id"]; ?>">
 
-                                <?php foreach ($groupedOptions as $optionName => $values): ?>
-                                    <div class="form-group">
-                                        <label for="<?php echo htmlspecialchars($optionName); ?>">
-                                            <?php echo htmlspecialchars(ucfirst($optionName)); ?>
-                                        </label>
+                                    <?php foreach ($groupedOptions as $optionName => $values): ?>
+                                        <div class="form-group">
+                                            <label for="<?php echo htmlspecialchars($optionName); ?>">
+                                                <?php echo htmlspecialchars(ucfirst($optionName)); ?>
+                                            </label>
 
-                                        <select id="<?php echo htmlspecialchars($optionName); ?>"
-                                            name="option[<?php echo htmlspecialchars($optionName); ?>]">
-                                            <option value="">Kies <?php echo htmlspecialchars($optionName); ?></option>
+                                            <select id="<?php echo htmlspecialchars($optionName); ?>"
+                                                name="option[<?php echo htmlspecialchars($optionName); ?>]">
+                                                <option value="">Kies <?php echo htmlspecialchars($optionName); ?></option>
 
-                                            <?php foreach ($values as $value): ?>
-                                                <option value="<?php echo htmlspecialchars($value); ?>">
-                                                    <?php echo htmlspecialchars($value); ?>
-                                                </option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                <?php endforeach; ?>
+                                                <?php foreach ($values as $value): ?>
+                                                    <option value="<?php echo htmlspecialchars($value); ?>">
+                                                        <?php echo htmlspecialchars($value); ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    <?php endforeach; ?>
 
-                                <button type="submit" class="button">Toevoegen aan winkelmandje</button>
-                            </form>
+                                    <button type="submit" class="button">Toevoegen aan winkelmandje</button>
+                                </form>
+                            </div>
                         <?php else: ?>
                             <a href="cart.php?add=<?php echo (int)$product["id"]; ?>" class="button">Toevoegen aan winkelmandje</a>
                         <?php endif; ?>
                     </div>
-                </div>
 
                 <hr style="margin:30px 0;">
 
@@ -121,9 +121,9 @@ $reviews = $reviewClass->getByProductId($conn, (int)$product["id"]);
                     <?php elseif (!$canReview): ?>
                         <p>Je kan enkel een review plaatsen als je dit product gekocht hebt.</p>
                     <?php else: ?>
-                        <p id="review-error" style="color:red;"></p>
+                        <p id="review-error" class="form-error"></p>
 
-                        <form id="review-form" method="post" style="margin-top:10px;">
+                        <form id="review-form" method="post" class="review-form">
                             <input type="hidden" name="product_id" value="<?php echo (int)$product["id"]; ?>">
 
                             <div class="form-group">
@@ -147,12 +147,12 @@ $reviews = $reviewClass->getByProductId($conn, (int)$product["id"]);
                         </form>
                     <?php endif; ?>
 
-                    <div id="review-list" style="margin-top:20px;">
+                    <div id="review-list" class="review-list">
                         <?php if (count($reviews) === 0): ?>
                             <p>Nog geen reviews.</p>
                         <?php else: ?>
                             <?php foreach ($reviews as $r): ?>
-                                <div style="padding:12px;border:1px solid #d8e1e8;border-radius:8px;margin-top:10px;">
+                                <div class="review-card">
                                     <strong><?php echo htmlspecialchars($r["first_name"] . " " . $r["last_name"]); ?></strong>
                                     <?php if ($r["rating"] !== null): ?>
                                         — <?php echo (int)$r["rating"]; ?>/5
