@@ -19,6 +19,7 @@ $orderClass = new Order();
 
 $lines = $cart->getLines($conn, $productClass);
 $total = $cart->getTotal($lines);
+$amount = (int) round($total);
 
 $error = "";
 $success = "";
@@ -30,7 +31,7 @@ if (count($lines) === 0) {
 
     // Afrekenen via POST
     if (!empty($_POST) && isset($_POST["checkout"])) {
-        if ($currency < $total) {
+        if ($currency < $amount) {
             $error = "Je hebt niet genoeg munten om af te rekenen.";
         } else {
             try {
@@ -48,7 +49,7 @@ if (count($lines) === 0) {
                     );
                 }
 
-                $userClass->deductCurrency($conn, $_SESSION["user_id"], (int)round($total));
+                $userClass->deductCurrency($conn, $_SESSION["user_id"], $amount);
 
                 $conn->commit();
 
@@ -99,7 +100,7 @@ if (count($lines) === 0) {
                     <p><strong>Totaal:</strong> €<?php echo number_format((float)$total, 2, ",", "."); ?></p>
                     <p><strong>Jouw munten:</strong> <?php echo (int)$currency; ?></p>
 
-                    <?php if ($currency < $total): ?>
+                    <?php if ($currency < $amount): ?>
                         <p>Je hebt niet genoeg units om af te rekenen.</p>
                         <p><a href="cart.php">← Terug naar winkelmandje</a></p>
                     <?php else: ?>
