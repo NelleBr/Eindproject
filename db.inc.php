@@ -1,2 +1,16 @@
 <?php
-$conn = new PDO('mysql:host=localhost;dbname=eindwerk', "root", "");
+
+$host = "localhost";
+$dbname = "eindwerk";
+$user = "root";
+$pass = "";
+
+$conn = new PDO(
+    "mysql:host=$host;dbname=$dbname;charset=utf8mb4",
+    $user,
+    $pass,
+    [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+    ]
+);
