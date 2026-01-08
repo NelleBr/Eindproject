@@ -666,7 +666,9 @@ footer p {
 
 #login button,
 #register button,
-#change-password button {
+#change-password button,  
+.admin-section button, 
+#admin button{
   margin-top: 14px;
   width: 100%;
   padding: 10px 12px;
@@ -707,6 +709,99 @@ footer p {
   text-decoration: underline;
 }
 
+/* Admin */
+
+#admin h2 {
+  margin-bottom: 12px;
+}
+
+.admin-section {
+  margin-top: 20px;
+}
+
+.admin-section h3 {
+  margin-bottom: 12px;
+}
+
+.success-message {
+  margin-top: 12px;
+  padding: 12px;
+  border: 2px solid #98bad5;
+  background: rgba(152, 186, 213, 0.25);
+  border-radius: 10px;
+}
+
+#admin .form-card {
+  max-width: 520px;
+}
+
+#admin textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+#admin .admin-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+#admin .admin-section li {
+  border: 2px solid #d8e1e8;
+  border-radius: 12px;
+  padding: 14px;
+  position: relative;
+  padding-bottom: 55px;
+}
+
+#admin .admin-section li strong {
+  color: #304674;
+}
+
+#admin .admin-section li img {
+  margin-top: 10px;
+  border-radius: 8px;
+  display: block;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  margin-top: 10px;
+}
+
+#admin .edit-icon {
+  display: inline-block;
+  margin-top: 10px;
+  margin-right: 8px;
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  padding: 6px;
+  background: #fff;
+}
+
+#admin .delete-icon {
+  border: none;
+  padding: 0;
+  width: auto;
+  margin-top: 0; 
+  padding: 6px;
+  background: #fff;
+}
+
+#admin hr {
+  display: none;
+}
+
+#admin .admin-section li form {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  margin: 0;
+}
+
 /* responsive */
 @media (max-width: 900px) {
     .product-list {
@@ -719,6 +814,10 @@ footer p {
 
     .filter-actions {
         justify-content: flex-start;
+    }
+
+    #admin .admin-section ul {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -738,5 +837,9 @@ footer p {
 
     .form-card {
         max-width: 100%;
+    }
+
+    #admin .admin-section ul {
+        grid-template-columns: 1fr;
     }
 }
