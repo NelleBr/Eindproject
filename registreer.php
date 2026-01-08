@@ -35,7 +35,17 @@ if (!empty($_POST)) {
         } else {
             $user->register($conn);
 
-            header("Location: index.php");
+            $dbUser = $user->findByEmail($conn);
+
+            $_SESSION["loggedin"] = true;
+            $_SESSION["user_id"] = $dbUser["id"];
+            $_SESSION["email"] = $dbUser["email"];
+            $_SESSION["first_name"] = $dbUser["first_name"];
+            $_SESSION["last_name"] = $dbUser["last_name"];
+            $_SESSION["is_admin"] = $dbUser["is_admin"];
+            $_SESSION["currency"] = $dbUser["currency"];
+
+            header("Location: account.php");
             exit;
         }
     }
