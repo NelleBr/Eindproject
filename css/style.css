@@ -158,21 +158,24 @@ nav a:hover {
 }
 
 .product-list {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 15px;
 }
 
 .product-link {
-    flex: 1 1 200px;
+    display: block;
 }
 
 .product-item {
-    border: 2px solid #d8e1e8;      
-    border-radius: 8px;          
-    padding: 15px;               
-    background-color: #fefefe;      
-    transition: 0.2s;   
+  border: 2px solid #d8e1e8;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #fefefe;
+  display: flex;
+  flex-direction: column;
+  min-height: 320px;   
+  transition: 0.2s;
 }
 
 .product-item img {
@@ -247,4 +250,18 @@ footer p {
 
 .product-detail-right .button {
     margin-top: 15px;
+}
+
+
+/* responsice producten */
+@media (max-width: 900px) {
+    .product-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 500px) {
+    .product-list {
+        grid-template-columns: 1fr;
+    }
 }
