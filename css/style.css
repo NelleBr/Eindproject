@@ -507,6 +507,50 @@ footer p {
   gap: 12px;
 }
 
+/* checkout */
+#checkout h2 {
+  margin-bottom: 10px;
+}
+
+#checkout a {
+  color: #304674;
+  font-weight: bold;
+}
+
+#checkout a:hover {
+  text-decoration: underline;
+}
+
+#checkout p,
+#checkout form {
+  margin-top: 12px;
+}
+
+#checkout .container p {
+  line-height: 1.4;
+}
+
+#checkout .container p strong {
+  color: #304674;
+}
+
+#checkout .container p {
+  padding: 0;
+}
+
+#checkout .container {
+  padding: 18px;
+}
+
+#checkout .button {
+  padding: 12px 18px;
+}
+
+#checkout .container p strong {
+  display: inline-block;
+  min-width: 120px;
+}
+
 
 /* responsice producten */
 @media (max-width: 900px) {
@@ -526,4 +570,9 @@ footer p {
     .product-list {
         grid-template-columns: 1fr;
     }
+
+    #checkout .container p strong {
+    min-width: 0;
+    display: inline;
+  }
 }
