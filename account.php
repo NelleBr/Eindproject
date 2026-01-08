@@ -8,7 +8,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 }
 
 include_once(__DIR__ . "/db.inc.php");
-include_once(__DIR__ . "/classes/Order.php");
+include_once(__DIR__ . "/classes/order.php");
 
 $orderClass = new Order();
 $orders = $orderClass->getByUserId($conn, (int)$_SESSION["user_id"]);

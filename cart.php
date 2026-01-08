@@ -2,7 +2,7 @@
 
 session_start();
 
-include_once(__DIR__ . "/classes/Cart.php");
+include_once(__DIR__ . "/classes/cart.php");
 include_once(__DIR__ . "/db.inc.php");
 include_once(__DIR__ . "/classes/product.php");
 

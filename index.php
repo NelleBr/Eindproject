@@ -3,8 +3,8 @@
 session_start();
 
 include_once(__DIR__ . "/db.inc.php");
-include_once(__DIR__ . "/classes/Category.php");
-include_once(__DIR__ . "/classes/Product.php");
+include_once(__DIR__ . "/classes/category.php");
+include_once(__DIR__ . "/classes/product.php");
 
 $categoryClass = new Category();
 $categories = $categoryClass->getAll($conn);
