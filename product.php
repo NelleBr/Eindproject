@@ -212,19 +212,24 @@ $reviews = $reviewClass->getByProductId($conn, (int)$product["id"]);
                             div.style.borderRadius = "8px";
                             div.style.marginTop = "10px";
 
-                            let html = "<strong>" + r.user_name + "</strong>";
+                            let strong = document.createElement("strong");
+                            strong.textContent = r.user_name;
+                            div.appendChild(strong);
 
                             if (r.rating !== null) {
-                                html += " — " + r.rating + "/5";
+                                let ratingText = document.createTextNode(" — " + r.rating + "/5");
+                                div.appendChild(ratingText);
                             }
 
                             if (r.comment) {
-                                html += "<p>" + r.comment + "</p>";
+                                let p = document.createElement("p");
+                                p.textContent = r.comment;
+                                div.appendChild(p);
                             }
 
-                            html += "<small>" + r.created_at + "</small>";
-
-                            div.innerHTML = html;
+                            let small = document.createElement("small");
+                            small.textContent = r.created_at;
+                            div.appendChild(small);
 
                             list.prepend(div);
                             form.reset();
