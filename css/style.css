@@ -551,6 +551,83 @@ footer p {
   min-width: 120px;
 }
 
+/* account */
+
+#account h2 {
+  margin-bottom: 12px;
+}
+
+.account-info {
+  margin-top: 12px;
+  padding: 16px;
+}
+
+.account-info p {
+  margin-top: 8px;
+  line-height: 1.4;
+}
+
+.account-info strong {
+  color: #304674;
+}
+
+.account-links {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* extra button variant */
+.button-outline {
+  background: transparent;
+  border: 2px solid #98bad5;
+  color: #304674;
+}
+
+.button-outline:hover {
+  background: rgba(152, 186, 213, 0.25);
+}
+
+.account-orders {
+  margin-top: 20px;
+}
+
+.account-orders h3 {
+  margin-bottom: 10px;
+}
+
+.order-card {
+  margin-top: 15px;
+  padding: 15px;
+  border: 2px solid #d8e1e8;
+  border-radius: 12px;
+  background: #fff;
+}
+.account-orders ul {
+  margin: 10px 0 0 15px;
+  padding: 0;
+  list-style: none;
+}
+
+.account-orders li {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.account-orders li img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.account-orders li strong {
+  color: #304674;
+}
+
 
 /* responsice producten */
 @media (max-width: 900px) {
