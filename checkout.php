@@ -37,14 +37,23 @@ if (count($lines) === 0) {
             try {
                 $conn->beginTransaction();
 
-                $orderId = $orderClass->create($conn, $_SESSION["user_id"], $total);
+                $orderId = $orderClass->create($conn, $_SESSION["user_id"], $amount);
 
                 foreach ($lines as $line) {
+                    $productId = (int)$line["product"]["id"];
+                    $qty = (int)$line["qty"];
+
+                    $ok = $productClass->decreaseStock($conn, $productId, $qty);
+
+                    if (!$ok) {
+                        throw new Exception("Niet genoeg voorraad.");
+                    }
+
                     $orderClass->addItem(
                         $conn,
                         $orderId,
-                        $line["product"]["id"],
-                        $line["qty"],
+                        $productId,
+                        $qty,
                         $line["product"]["price"]
                     );
                 }
@@ -59,7 +68,9 @@ if (count($lines) === 0) {
 
                 $success = "Aankoop gelukt! Je munten zijn correct afgerekend.";
             } catch (Exception $e) {
-                $conn->rollBack();
+                if ($conn->inTransaction()) {
+                    $conn->rollBack();
+                }
                 $error = "Er liep iets mis bij het afrekenen.";
             }
         }
